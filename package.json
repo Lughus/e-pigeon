@@ -1,0 +1,26 @@
+{
+  "name": "@lug/e-pigeon",
+  "version": "0.0.1-alpha.1",
+  "description": "Handmade messaging protocol implemented in js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lughus/e-pigeon.git"
+  },
+  "keywords": [
+    "messaging",
+    "protocol"
+  ],
+  "author": "Westixy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lughus/e-pigeon/issues"
+  },
+  "homepage": "https://github.com/Lughus/e-pigeon#readme",
+  "dependencies": {
+    "@lug/netproxy-node-ipc": "^1.0.2"
+  }
+}
