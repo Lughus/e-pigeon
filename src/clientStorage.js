@@ -44,3 +44,5 @@ class ClientStorage {
     return socket===null ? 'disconnected' : 'connected'
   }
 }
+
+module.exports = ClientStorage
