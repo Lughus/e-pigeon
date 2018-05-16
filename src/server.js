@@ -50,7 +50,7 @@ class EPigeonServer {
     * - check if message id is the next
     *   - if not put in wait list
     *   - if yes send the message to the event message recieved 
-    *     for each that are in the right order and block when is not
+    *     for each that are in the right order and block when is not and remove from the list
     */
   }
   _onMessageConfirm(socket, uid) {

@@ -21,6 +21,11 @@ class ClientStorage {
      */
     this._lastSendId = 0
     /**
+     * Last id that was emit to the client
+     * @type {Int}
+     */
+    this._lastEmitId = 0
+    /**
      * List of messages that are sent but not confirmed
      * @type {MessagePrototype[]}
      */
