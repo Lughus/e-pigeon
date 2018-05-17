@@ -5,7 +5,7 @@ const NetClientProxy = NetClientProxyNodeIpc
 const MessagePrototype = require('./messagePrototype')
 const ClientStorage = require('./clientStorage')
 
-// TODO: Happy debug to myself !!! 
+// TODO: Happy debug to myself !!!  
 
 class EPigeonClient {
   constructor() {
