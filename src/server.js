@@ -1,4 +1,6 @@
-const { NetServerProxyNodeIpc } = require('@lug/netproxy-node-ipc')
+const {
+  NetServerProxyNodeIpc
+} = require('@lug/netproxy-node-ipc')
 const NetServerProxy = NetServerProxyNodeIpc
 const MessagePrototype = require('./messagePrototype')
 const ClientStorage = require('./clientStorage')
@@ -52,7 +54,10 @@ class EPigeonServer {
       this.clients.push(client)
     }
     client.socket = socket
-    // TODO: send message in the waitlist
+    // send messages in the sendlist
+    client._sendList.forEach(message => {
+      this._sendMessageWithRetry(client.socket, message)
+    })
   }
   _onMessageNew(socket, data) {
     /* on new message : many things
@@ -68,19 +73,13 @@ class EPigeonServer {
     if (client._lastEmitId + 1 === message.id) {
       // send all in wait list
       for (
-        let mess = message;
-        mess !== undefined;
-        mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
+        let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
       ) {
         // find destination client
         let toClient = this.clients.find(c => c.uuid === mess.to)
         // send message
-        this._sendMessage(toClient.socket, mess)
+        this._sendMessageWithRetry(toClient.socket, mess)
         toClient._sendList.push(mess)
-        // resend the message if 2 s has passed and the message is not confirmed
-        mess.resendAction = setTimeout(() => {
-          this._sendMessage(toClient.socket, mess)
-        }, 2000)
         // rm from list
         client._waitList.splice(
           client._waitList.findIndex(m => m.uid === mess.uid),
@@ -134,17 +133,42 @@ class EPigeonServer {
   }
   _sendMessage(socket, message) {
     delete message.retryAction
-    this._net.send(client.socket, { action: 'message.new', payload: message })
+    this._net.send(socket, {
+      action: 'message.new',
+      payload: message
+    })
+  }
+  _sendMessageWithRetry(socket, message) {
+    this._net.send(socket, {
+      action: 'message.new',
+      payload: message
+    })
+    message.resendAction = setTimeout(() => {
+      this._sendMessageWithRetry(socket, mess)
+    }, 2000)
   }
   _confirmMessage(socket, message) {
-    this._net.send(socket, { action: 'message.confirm', payload: message.uid })
+    this._net.send(socket, {
+      action: 'message.confirm',
+      payload: message.uid
+    })
   }
   _retryMessage(socket, id) {
-    this._net.send(socket, { action: 'message.retry', payload: id })
+    this._net.send(socket, {
+      action: 'message.retry',
+      payload: id
+    })
   }
+  /**
+   * Serve on this port
+   * @param {int} port Number of the port 
+   */
   serve(port) {
     this._net.listen(port)
   }
+  /**
+   * Stop the server
+   */
   stop() {
     this._net.stop()
   }
