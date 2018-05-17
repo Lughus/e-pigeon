@@ -1,10 +1,12 @@
+const uuidv4 = require('uuid/v4')
+
 class ClientStorage {
   constructor() {
     /**
      * Unique Id of the client
      * @type {string}
      */
-    this.uuid = ''
+    this.uuid = uuidv4()
     /**
      * Data of the client
      * @type {Object}
@@ -14,7 +16,7 @@ class ClientStorage {
      * Socket used to send data
      * @type {Socket|any}
      */
-    this.socket = ''
+    this.socket = null
     /**
      * Last id that was sent by the client
      * @type {Int}
@@ -40,8 +42,8 @@ class ClientStorage {
    * Obtain the state of the client
    * @type {string}
    */
-  get state () {
-    return socket===null ? 'disconnected' : 'connected'
+  get state() {
+    return socket === null ? 'disconnected' : 'connected'
   }
 }
 

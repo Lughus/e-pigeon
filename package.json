@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Lughus/e-pigeon#readme",
   "dependencies": {
-    "@lug/netproxy-node-ipc": "^1.0.2"
+    "@lug/netproxy-node-ipc": "^1.0.2",
+    "uuid": "^3.2.1"
   }
 }

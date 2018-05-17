@@ -39,18 +39,23 @@ class EPigeonServer {
     }
   }
   _onData(socket, data) {
-    data = JSON.parse(data)({
+    data = JSON.parse(data)
+    let actions = {
       auth: this._onAuth.bind(this),
       'message.new': this._onMessageNew.bind(this),
       'message.confirm': this._onMessageConfirm.bind(this),
       'message.retry': this._onMessageRetry.bind(this),
-    })[data.action](socket, data.payload)
+      'clients.list': this._onClientsList.bind(this),
+      'session.update': this._onSessionUpdate.bind(this),
+    }
+    actions[data.action](socket, data.payload)
   }
   _onAuth(socket, uuid) {
     // find if a client have this uuid if true, set the socket else create new client
     let client = this.clients.find(c => c.uuid === uuid)
     if (client === undefined) {
       client = new ClientStorage()
+      client.uuid = uuid
       this.clients.push(client)
     }
     client.socket = socket
@@ -78,8 +83,9 @@ class EPigeonServer {
         // find destination client
         let toClient = this.clients.find(c => c.uuid === mess.to)
         // send message
-        this._sendMessageWithRetry(toClient.socket, mess)
         toClient._sendList.push(mess)
+        if (toClient.socket !== null)
+          this._sendMessageWithRetry(toClient.socket, mess)
         // rm from list
         client._waitList.splice(
           client._waitList.findIndex(m => m.uid === mess.uid),
@@ -96,7 +102,7 @@ class EPigeonServer {
     const client = this._findFromSocket(socket)
     if (client !== undefined) {
       const index = client._sentList.findIndex(m => m.uid === uid)
-      if (index !== undefined) {
+      if (index !== -1) {
         let message = client._sentList.splice(index, 1)
         if (message.retryAction !== undefined) clearTimeout(message.retryAction)
       } else
@@ -131,33 +137,58 @@ class EPigeonServer {
         uid
       )
   }
+  _onClientsList(socket) {
+    this._net.send(socket, JSON.stringify({
+      action: 'clients.list',
+      payload: this.clients.map(({
+        uuid,
+        session
+      }) => ({
+        uuid,
+        session
+      }))
+    }))
+  }
   _sendMessage(socket, message) {
+    if (socket === null) return
     delete message.retryAction
-    this._net.send(socket, {
+    this._net.send(socket, JSON.stringify({
       action: 'message.new',
       payload: message
-    })
+    }))
   }
   _sendMessageWithRetry(socket, message) {
-    this._net.send(socket, {
-      action: 'message.new',
-      payload: message
-    })
+    this._sendMessage(socket, message)
     message.resendAction = setTimeout(() => {
       this._sendMessageWithRetry(socket, mess)
     }, 2000)
   }
   _confirmMessage(socket, message) {
-    this._net.send(socket, {
+    this._net.send(socket, JSON.stringify({
       action: 'message.confirm',
       payload: message.uid
+    }))
+  }
+  _onSessionUpdate(socket, session) {
+    const client = this._findFromSocket(socket)
+    const data = JSON.stringify({
+      action: 'session.update',
+      payload: {
+        uuid: client.uuid,
+        session
+      }
+    }) 
+    this.clients.forEach(c => {
+      if (c.socket !== null && c.uuid !== client.uuid) {
+        this._net.send(c.socket, data)
+      }
     })
   }
   _retryMessage(socket, id) {
-    this._net.send(socket, {
+    this._net.send(socket, JSON.stringify({
       action: 'message.retry',
       payload: id
-    })
+    }))
   }
   /**
    * Serve on this port

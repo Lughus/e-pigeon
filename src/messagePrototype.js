@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4')
+
 class MessagePrototype {
   constructor() {
     /**
@@ -19,7 +21,7 @@ class MessagePrototype {
      * Unique id of the message
      * @type {string}
      */
-    this.uid = null
+    this.uid = uuidv4()
     /**
      * Content of the message
      * @type {any}
