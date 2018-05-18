@@ -204,3 +204,5 @@ class EPigeonServer {
     this._net.stop()
   }
 }
+
+module.exports = EPigeonServer

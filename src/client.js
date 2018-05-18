@@ -154,3 +154,5 @@ class EPigeonClient {
     this._net.disconnect()
   }
 }
+
+module.exports = EPigeonClient
