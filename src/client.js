@@ -46,19 +46,19 @@ class EPigeonClient {
     this._net.ev.on('data', this._onData.bind(this))
   }
   _onConnect() {
-    dbg('on connect')
     this._state = 'connected'
+    dbg('connected')
+    this._ev.emit('connected')
     this._authMe()
     setTimeout(() => {
       this._me._sentList.forEach(message => {
         this._sendMessageWithRetry(message)
       })
-      this._ev.emit('connected')
     }, 500)
   }
   _onDisconnect() {
-      this._state = 'disconnected'      
-      this._ev.emit('disconnected')
+    this._state = 'disconnected'
+    this._ev.emit('disconnected')
     this._me._sentList.forEach(message => {
       if (message.resendAction !== undefined) {
         clearTimeout(message.resendAction)
@@ -175,7 +175,7 @@ class EPigeonClient {
   }
   updateSession(object = {}) {
     Object.assign(this._me.session, object)
-    dbg('update session', this.state)
+    dbg('update session')
     if (this.state === 'connected')
       this._net.send(JSON.stringify({
         action: 'session.update',

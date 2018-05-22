@@ -43,6 +43,7 @@ class EPigeonServer {
   }
   _findFromMessageTo(message, clients = this.clients) {
     let client = undefined
+    dbg('find client:', client, message)
     if (typeof message.to === 'string') {
       client = clients.find(c => c.uuid = message.to)
     } else if (typeof message.to === 'object') {
@@ -100,7 +101,7 @@ class EPigeonServer {
     this._tryToSendUnknowDestinatoryMessage(client)
   }
   _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
-    dbg('try to find destinator for :', clients.toString())
+    dbg('try to find destinator for :', clients.toString(), this._unknowList)
     if (!Array.isArray(clients)) clients = [clients]
     for (let message of this._unknowList) {
       let client = this._findFromMessageTo(message, clients)
@@ -124,7 +125,8 @@ class EPigeonServer {
     const client = this._findFromSocket(socket)
     dbg('message recieved from :', client.toString(), message)
     this._confirmMessage(socket, message)
-    if (client._lastEmitId + 1 === message.id) {
+    client._waitList.push(message)
+    if (client._lastEmitId === message.id) {
       // send all in wait list
       for (
         let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
@@ -147,8 +149,6 @@ class EPigeonServer {
         )
         client._lastEmitId += 1
       }
-    } else {
-      client._waitList.push(message)
     }
   }
   _onMessageConfirm(socket, uid) {
