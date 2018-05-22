@@ -18,17 +18,32 @@ class EPigeonServer {
      */
     this.clients = []
 
+    this._unknowList = []
+
     this._initEvents()
   }
   _initEvents() {
-    this._net._emitter.on('data', this._onData.bind(this))
-    this._net._emitter.on(
+    this._net.ev.on('socket.data', this._onData.bind(this))
+    this._net.ev.on(
       'socket.disconnect',
       this._onSocketDisconnect.bind(this)
     )
   }
   _findFromSocket(socket) {
-    return this.clients.find(s => s === socket)
+    return this.clients.find(c => c.socket === socket)
+  }
+  _findFromMessageTo(message, clients = this.clients) {
+    let client = undefined
+    if (typeof message.to === 'string') {
+      client = clients.find(c => c.uuid = message.to)
+    } else if (typeof message.to === 'object') {
+      for (let key in message.to) {
+        client = clients.find(c =>
+          c.session[key] !== undefined &&
+          c.session[key] === message.to[key])
+      }
+    }
+    return client
   }
   _onSocketDisconnect(socket) {
     // find in the client list the socket and put his state to disconnected
@@ -60,11 +75,23 @@ class EPigeonServer {
     }
     client.socket = socket
     // send messages in the sendlist
-    client._sendList.forEach(message => {
+    client._sentList.forEach(message => {
       this._sendMessageWithRetry(client.socket, message)
     })
+    this._tryToSendUnknowDestinatoryMessage(client)
   }
-  _onMessageNew(socket, data) {
+  _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
+    if (!Array.isArray(clients)) clients = [clients]
+    for (let message of this._unknowList) {
+      let client = this._findFromMessageTo(message, clients)
+      if (client !== undefined) {
+        client._sentList.push(message)
+        if (client.socket !== undefined)
+          this._sendMessageWithRetry(client.socket, message)
+      }
+    }
+  }
+  _onMessageNew(socket, message) {
     /* on new message : many things
      * - find client from
      * - confirm message reception
@@ -81,11 +108,16 @@ class EPigeonServer {
         let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
       ) {
         // find destination client
-        let toClient = this.clients.find(c => c.uuid === mess.to)
-        // send message
-        toClient._sendList.push(mess)
-        if (toClient.socket !== null)
-          this._sendMessageWithRetry(toClient.socket, mess)
+        let toClient = this._findFromMessageTo(mess)
+        if (toClient === undefined) {
+          // put message in unknown list
+          this._unknowList.push(mess)
+        } else {
+          // send message
+          toClient._sentList.push(mess)
+          if (toClient.socket !== null)
+            this._sendMessageWithRetry(toClient.socket, mess)
+        }
         // rm from list
         client._waitList.splice(
           client._waitList.findIndex(m => m.uid === mess.uid),
@@ -171,18 +203,21 @@ class EPigeonServer {
   }
   _onSessionUpdate(socket, session) {
     const client = this._findFromSocket(socket)
+    client.session = session
+    this._tryToSendUnknowDestinatoryMessage(client)
     const data = JSON.stringify({
       action: 'session.update',
       payload: {
         uuid: client.uuid,
         session
       }
-    }) 
+    })
     this.clients.forEach(c => {
       if (c.socket !== null && c.uuid !== client.uuid) {
         this._net.send(c.socket, data)
       }
     })
+
   }
   _retryMessage(socket, id) {
     this._net.send(socket, JSON.stringify({

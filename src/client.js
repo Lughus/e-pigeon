@@ -29,9 +29,9 @@ class EPigeonClient {
     return this._me.session
   }
   _initEvents() {
-    this._net._emitter.on('connect', this._onConnect.bind(this))
-    this._net._emitter.on('disconnect', this._onDisconnect.bind(this))
-    this._net._emitter.on('data', this._onData.bind(this))
+    this._net.ev.on('connect', this._onConnect.bind(this))
+    this._net.ev.on('disconnect', this._onDisconnect.bind(this))
+    this._net.ev.on('data', this._onData.bind(this))
   }
   _onConnect() {
     this._authMe()
@@ -105,7 +105,7 @@ class EPigeonClient {
   _onMessageConfirm(uid) {
     const index = this._me._sentList.findIndex(m => m.uid === uid)
     if (index !== -1) {
-      message = this._me._sentList.splice(index, 1)
+      const message = this._me._sentList.splice(index, 1)
       if (message.resendAction !== undefined) {
         clearTimeout(message.resendAction)
         delete message.resendAction
