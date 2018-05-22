@@ -43,7 +43,7 @@ class ClientStorage {
    * @type {string}
    */
   get state() {
-    return socket === null ? 'disconnected' : 'connected'
+    return this.socket === null ? 'disconnected' : 'connected'
   }
 }
 
