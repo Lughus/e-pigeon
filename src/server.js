@@ -30,6 +30,7 @@ class EPigeonServer {
     )
   }
   _findFromSocket(socket) {
+    if(socket === null) return
     return this.clients.find(c => c.socket === socket)
   }
   _findFromMessageTo(message, clients = this.clients) {
