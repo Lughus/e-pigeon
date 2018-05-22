@@ -22,7 +22,6 @@ class EPigeonClient {
     this._clients = []
     this._state = 'disconnected'
     this._ev = new Events
-    this.onMessage = () => {}
     this._initEvents()
   }
   get clients() {
@@ -104,7 +103,7 @@ class EPigeonClient {
     const client = this._me
     dbg('message recieved :', message)
     this._confirmMessage(message)
-    if (client._lastEmitId + 1 === message.id) {
+    if (client._lastEmitId === message.id) {
       // send all in wait list
       for (
         let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
@@ -114,7 +113,6 @@ class EPigeonClient {
           1
         )
         client._lastEmitId += 1
-        this.onMessage(message)
         this._ev.emit('message', message)
       }
     } else {

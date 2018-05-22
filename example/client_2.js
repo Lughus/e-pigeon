@@ -4,9 +4,9 @@ const {
 
 const client = new EPigeonClient
 
-client.onMessage = message => {
+client.on('message', message => {
   console.log('!!!!!!', message)
-}
+})
 
 client.updateSession({
   name: 'client 2'
