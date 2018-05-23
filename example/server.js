@@ -2,9 +2,8 @@ const {
   EPigeonServer
 } = require('../index')
 
+// create the server
 const server = new EPigeonServer
 
+// listen on port 9999
 server.serve(9999)
-
-//setTimeout(() => server.stop(), 3000)
-//setTimeout(() => server.serve(9999), 4000)

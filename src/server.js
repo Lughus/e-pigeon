@@ -19,7 +19,10 @@ class EPigeonServer {
      * @type {ClientStorage[]}
      */
     this.clients = []
-
+    /**
+     * List of message that doesn't know the destination client and wait that it connect
+     * @type {MessagePrototype[]}
+     */
     this._unknowList = []
 
     this._initEvents()
@@ -33,32 +36,45 @@ class EPigeonServer {
     this._net.ev.on(
       'socket.connect',
       (socket) => {
-        dbg('socket connected : ', socket.toString(), this._findFromSocket(socket))
+        dbg('socket connected : ', socket)
       }
     )
   }
+  /**
+   * find a client from his socket
+   * @param {Socket|any} socket of the client
+   * @returns {ClientStorage?} the client wha as this socket
+   */
   _findFromSocket(socket) {
     if (socket === null) return
     return this.clients.find(c => c.socket === socket)
   }
+  /**
+   * Find the destinator(s) of the message
+   * @param {MessagePrototype} message the message that contanin the destinator
+   * @param {ClientStorage[]} clients the clients that we need to find in a destinator
+   * @returns {ClientStorage[]} clients that correspond to message.to
+   */
   _findFromMessageTo(message, clients = this.clients) {
-    let client = undefined
+    let dstClients = []
     dbg('find client:', client, message)
     if (typeof message.to === 'string') {
-      client = clients.find(c => c.uuid = message.to)
+      let client = clients.find(c => c.uuid = message.to)
+      if (client !== undefined) dstClients.push(client)
     } else if (typeof message.to === 'object') {
-      for (let key in message.to) {
-        client = clients.find(c =>
-          c.session[key] !== undefined &&
-          c.session[key] === message.to[key])
-      }
+      for (let client of clients)
+        for (let key in message.to) {
+          if (client.session[key] !== undefined &&
+            client.session[key] === message.to[key])
+            dstClients.push(client)
+        }
     }
-    return client
+    return dstClients
   }
   _onSocketDisconnect(socket) {
     // find in the client list the socket and put his state to disconnected
     const client = this._findFromSocket(socket)
-    dbg('client disconnected :', socket.toString())
+    dbg('client disconnected :', socket)
     if (client !== undefined) {
       client.socket = null
       client._sentList.forEach(message => {
@@ -101,16 +117,17 @@ class EPigeonServer {
     this._tryToSendUnknowDestinatoryMessage(client)
   }
   _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
-    dbg('try to find destinator for :', clients.toString(), this._unknowList)
+    dbg('try to find destinator for :', clients, this._unknowList)
     if (!Array.isArray(clients)) clients = [clients]
     for (let message of this._unknowList) {
-      let client = this._findFromMessageTo(message, clients)
-      if (client !== undefined) {
-        dbg('message found a destinator :', message, client)
-        client._sentList.push(message)
-        if (client.socket !== undefined)
-          this._sendMessageWithRetry(client.socket, message)
-      }
+      let dstClients = this._findFromMessageTo(message, clients)
+      for (let client of dstClients)
+        if (client !== undefined) {
+          dbg('message found a destinator :', message, client)
+          client._sentList.push(message)
+          if (client.socket !== undefined)
+            this._sendMessageWithRetry(client.socket, message)
+        }
     }
   }
   _onMessageNew(socket, message) {
@@ -123,7 +140,7 @@ class EPigeonServer {
      *     for each that are in the right order and block when is not and remove from the list
      */
     const client = this._findFromSocket(socket)
-    dbg('message recieved from :', client.toString(), message)
+    dbg('message recieved from :', client, message)
     this._confirmMessage(socket, message)
     client._waitList.push(message)
     if (client._lastEmitId === message.id) {
@@ -132,15 +149,17 @@ class EPigeonServer {
         let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
       ) {
         // find destination client
-        let toClient = this._findFromMessageTo(mess)
-        if (toClient === undefined) {
+        let toClients = this._findFromMessageTo(mess)
+        if (toClients.length === 0) {
           // put message in unknown list
           this._unknowList.push(mess)
         } else {
           // send message
-          toClient._sentList.push(mess)
-          if (toClient.socket !== null)
-            this._sendMessageWithRetry(toClient.socket, mess)
+          for (let toClient of toClients) {
+            toClient._sentList.push(mess)
+            if (toClient.socket !== null)
+              this._sendMessageWithRetry(toClient.socket, mess)
+          }
         }
         // rm from list
         client._waitList.splice(
@@ -237,7 +256,7 @@ class EPigeonServer {
   }
   _onSessionUpdate(socket, session) {
     const client = this._findFromSocket(socket)
-    dbg('session update for:', client.toString(), session)
+    dbg('session update for:', client, session)
     client.session = session
     const data = JSON.stringify({
       action: 'session.update',

@@ -7,8 +7,6 @@ const ClientStorage = require('./clientStorage')
 
 const Events = require('events')
 
-// TODO: Happy debug to myself !!!  
-
 const dbg = require('debug')('epigeon:client')
 
 class EPigeonClient {
@@ -24,26 +22,59 @@ class EPigeonClient {
     this._ev = new Events
     this._initEvents()
   }
+  /**
+   * clients that has been connected to the server
+   * @type {objcet[]} list of clients that is {uuid, session}
+   */
   get clients() {
     return this._clients
   }
+  /**
+   * uuid of this client
+   * @type {string}
+   */
   get uuid() {
     return this._me.uuid
   }
+  /**
+   * Session of this client
+   * @type {object}
+   */
   get session() {
     return this._me.session
   }
+  /**
+   * State of the client; can be "connected" or "disconnected"
+   * @type {string}
+   */
   get state() {
     return this._state
   }
+  /**
+   * Define event callback (Emitter)
+   * @param {string} event  the name of the event
+   * @param {function} callback the function to trigger when it happen 
+   */
   on(event, callback) {
     this._ev.on(event, callback)
+  }
+  /**
+   * Disable an event
+   * @param {string} event the name of the event
+   * @param {function} callback  the callback of this event
+   */
+  off(event, callback) {
+    this._ev.off(event, callback)
   }
   _initEvents() {
     this._net.ev.on('connected', this._onConnect.bind(this))
     this._net.ev.on('disconnect', this._onDisconnect.bind(this))
     this._net.ev.on('data', this._onData.bind(this))
   }
+  /**
+   * Handler for the on connect action.
+   * You can add an handler with client.on('connected',...)
+   */
   _onConnect() {
     this._state = 'connected'
     dbg('connected')
@@ -55,6 +86,10 @@ class EPigeonClient {
       })
     }, 500)
   }
+  /**
+   * Handler for the on disconnect action.
+   * You can add an handler with client.on('disconnected',...)
+   */
   _onDisconnect() {
     this._state = 'disconnected'
     this._ev.emit('disconnected')
@@ -77,6 +112,10 @@ class EPigeonClient {
     }
     actions[data.action](data.payload)
   }
+  /**
+   * Handler for the on auth action.
+   * You can add an handler with client.on('authenticated',...)
+   */
   _onAuth() {
     dbg('authenticated')
     this.updateSession(this.session)
@@ -93,12 +132,21 @@ class EPigeonClient {
     dbg('recieved client list :', list)
     this._clients = list
   }
+  /**
+   * Handler for the on sessionUpdate action.
+   * You can add an handler with client.on('session-update',({uuid,session})=>...)
+   */
   _onSessionUpdate(payload) {
+    this._ev.emit('session-update', payload)
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
     else client.session = payload.session
   }
+  /**
+   * Handler for the on message action.
+   * You can add an handler with client.on('message',message=>...)
+   */
   _onMessageNew(message) {
     const client = this._me
     dbg('message recieved :', message)
@@ -160,6 +208,13 @@ class EPigeonClient {
       this._sendMessageWithRetry(message)
     }, 2000)
   }
+  /**
+   * Send a message to another client
+   * @param {string|object} to string : uuid of the destination client ||
+   * object : {key:value} that correspond to the session of the client 
+   * ; can correspond to many like a group
+   * @param {any} messageCnt Content of the message 
+   */
   sendMessage(to, messageCnt) {
     dbg('send message to:', to, messageCnt)
     const message = new MessagePrototype
@@ -171,6 +226,10 @@ class EPigeonClient {
     if (this._me.state === 'connected')
       this._sendMessageWithRetry(message)
   }
+  /**
+   * Update your session object and send it to the others connected client
+   * @param {object} object some key:value that you need to change in the session
+   */
   updateSession(object = {}) {
     Object.assign(this._me.session, object)
     dbg('update session')
@@ -180,10 +239,18 @@ class EPigeonClient {
         payload: this._me.session
       }))
   }
+  /**
+   * try to connect to the server, try to the infinite
+   * @param {string} ip the ip or dns of the server
+   * @param {Int} port the port of the server 
+   */
   connect(ip, port) {
     dbg('connect:', ip, port)
     this._net.connect(ip, port)
   }
+  /**
+   * disconnect the client
+   */
   disconnect() {
     dbg('disconnect')
     this._net.disconnect()
