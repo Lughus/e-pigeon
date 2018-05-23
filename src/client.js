@@ -23,8 +23,8 @@ class EPigeonClient {
     this._initEvents()
   }
   /**
-   * clients that has been connected to the server
-   * @type {objcet[]} list of clients that is {uuid, session}
+   * clients that has been connected to the server {uuid, session}
+   * @type {objcet[]}
    */
   get clients() {
     return this._clients
@@ -53,7 +53,7 @@ class EPigeonClient {
   /**
    * Define event callback (Emitter)
    * @param {string} event  the name of the event
-   * @param {function} callback the function to trigger when it happen 
+   * @param {function}
    */
   on(event, callback) {
     this._ev.on(event, callback)
@@ -61,7 +61,7 @@ class EPigeonClient {
   /**
    * Disable an event
    * @param {string} event the name of the event
-   * @param {function} callback  the callback of this event
+   * @param {function}
    */
   off(event, callback) {
     this._ev.off(event, callback)

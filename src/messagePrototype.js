@@ -4,12 +4,12 @@ class MessagePrototype {
   constructor() {
     /**
      * Uuid of who sent the message
-     * @type {string} uuid of the sender
+     * @type {string}
      */
     this.from = ''
     /**
-     * Uuid of who is destinated the message
-     * @type {string|object} string : uuid of the client || object : key:value that correspond to the session of the client
+     * string : uuid of the client || object : key:value that correspond to the session of the client
+     * @type {string|object} 
      */
     this.to = ''
     /**
