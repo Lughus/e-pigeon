@@ -1,4 +1,4 @@
-# ![e-pigeon logo](/ressources/pigeon.svg) e-pigeon
+# ![logo](https://github.com/Lughus/e-pigeon/blob/master/ressources/pigeon.svg) e-pigeon
 
 Implementation of an handmade application protocol for messaging
 
@@ -16,7 +16,7 @@ Server cannot receive message, but you can start a client in the same app of the
 Works on node 8+\
 Install it with `npm i @lug/e-pigeon`
 
-You can check [example](./example) for an simple use of this module.
+You can check [example](https://github.com/Lughus/e-pigeon/tree/master/example) for an simple use of this module.
 
 ### Server
 
