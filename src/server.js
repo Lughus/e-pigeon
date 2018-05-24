@@ -57,7 +57,7 @@ class EPigeonServer {
    */
   _findFromMessageTo(message, clients = this.clients) {
     let dstClients = []
-    dbg('find client:', client, message)
+    dbg('find client:', clients, message)
     if (typeof message.to === 'string') {
       let client = clients.find(c => c.uuid = message.to)
       if (client !== undefined) dstClients.push(client)
@@ -78,8 +78,7 @@ class EPigeonServer {
     if (client !== undefined) {
       client.socket = null
       client._sentList.forEach(message => {
-        clearTimeout(message.resendAction)
-        delete message.resendAction
+        this._clearResendAction(message)
       })
     }
   }
@@ -110,6 +109,7 @@ class EPigeonServer {
       action: 'auth',
       payload: ''
     }))
+    this._sendClientsList(socket)
     // send messages in the sendlist
     client._sentList.forEach(message => {
       this._sendMessageWithRetry(client.socket, message)
@@ -124,11 +124,16 @@ class EPigeonServer {
       for (let client of dstClients)
         if (client !== undefined) {
           dbg('message found a destinator :', message, client)
+          this._updateMessageId(client, message)
           client._sentList.push(message)
           if (client.socket !== undefined)
             this._sendMessageWithRetry(client.socket, message)
         }
     }
+  }
+  _updateMessageId(client, message) {
+    message.fromId = message.id
+    message.id = client._lastEmitId++
   }
   _onMessageNew(socket, message) {
     /* on new message : many things
@@ -156,9 +161,13 @@ class EPigeonServer {
         } else {
           // send message
           for (let toClient of toClients) {
-            toClient._sentList.push(mess)
-            if (toClient.socket !== null)
-              this._sendMessageWithRetry(toClient.socket, mess)
+            this._clearResendAction(mess)
+            let mess_ = JSON.parse(JSON.stringify(mess))
+            this._updateMessageId(toClient, mess_)
+            toClient._sentList.push(mess_)
+            if (toClient.socket !== null) {
+              this._sendMessageWithRetry(toClient.socket, mess_)
+            }
           }
         }
         // rm from list
@@ -177,20 +186,17 @@ class EPigeonServer {
       const index = client._sentList.findIndex(m => m.uid === uid)
       if (index !== -1) {
         let message = client._sentList.splice(index, 1)[0]
-        if (message.resendAction !== undefined) {
-          clearTimeout(message.resendAction)
-          delete message.resendAction
-        }
+        this._clearResendAction(message)
         dbg('Confirmed message :', message)
       } else
         console.error(
-          Error('Message confirm recieved but cannot find message'),
+          Error('SRV:Message confirm recieved but cannot find message'),
           client,
           uid
         )
     } else
       console.error(
-        Error('Message confirm recieved but cannot find client'),
+        Error('SRV:Message confirm recieved but cannot find client'),
         socket,
         uid
       )
@@ -204,19 +210,22 @@ class EPigeonServer {
       if (message !== undefined) this._sendMessage(socket, message)
       else
         console.error(
-          Error('Message retry asked but cannot find message'),
+          Error('SRV:Message retry asked but cannot find message'),
           client,
           uid
         )
     } else
       console.error(
-        Error('Message retry asked but cannot find client'),
+        Error('SRV:Message retry asked but cannot find client'),
         socket,
         uid
       )
   }
   _onClientsList(socket) {
     dbg('asked for client list')
+    this._sendClientsList(socket)
+  }
+  _sendClientsList(socket) {
     this._net.send(socket, JSON.stringify({
       action: 'clients.list',
       payload: this.clients.map(({
@@ -228,9 +237,15 @@ class EPigeonServer {
       }))
     }))
   }
+  _clearResendAction(message) {
+    if (message.resendAction !== undefined) {
+      clearInterval(message.resendAction)
+      delete message.resendAction
+    }
+  }
   _sendMessage(socket, message) {
     if (socket === null) return
-    delete message.resendAction
+    this._clearResendAction(message)
     this._net.send(socket, JSON.stringify({
       action: 'message.new',
       payload: message
@@ -245,10 +260,7 @@ class EPigeonServer {
   }
   _confirmMessage(socket, message) {
     dbg('confirm message', message)
-    if (message.resendAction !== undefined) {
-      clearInterval(message.resendAction)
-      delete message.resendAction
-    }
+    this._clearResendAction(message)
     this._net.send(socket, JSON.stringify({
       action: 'message.confirm',
       payload: message.uid

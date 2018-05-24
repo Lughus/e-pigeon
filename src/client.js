@@ -196,6 +196,7 @@ class EPigeonClient {
     }))
   }
   _sendMessage(message) {
+    if (message.action === 'message.new') message = message.payload
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',
