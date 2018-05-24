@@ -124,10 +124,11 @@ class EPigeonServer {
       for (let client of dstClients)
         if (client !== undefined) {
           dbg('message found a destinator :', message, client)
-          this._updateMessageId(client, message)
-          client._sentList.push(message)
+          let message_ = JSON.parse(JSON.stringify(message))
+          this._updateMessageId(client, message_)
+          client._sentList.push(message_)
           if (client.socket !== undefined)
-            this._sendMessageWithRetry(client.socket, message)
+            this._sendMessageWithRetry(client.socket, message_)
         }
     }
   }
