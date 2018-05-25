@@ -7,7 +7,7 @@ Be careful this is an alpha version of the software and many bugs can be found i
 ## What does it do ?
 
 That's a simple messaging server / client using node-ipc in the hood\
-It garantee the order of sended messages and that the message has been recieved.\
+It garantee the order of sended messages and that the message has been received.\
 You can send a message to a group of clients.\
 Server cannot receive message, but you can start a client in the same app of the server and will use localhost to communicate.
 
@@ -70,6 +70,8 @@ You can add en event handler with `client.on(<event>, <callback>)`
 | authenticated | - | when the client is authenticated|
 | session-update | {uuid, session} | when a client update his session|
 | message | message | when a message is recieved, contains many things but the content is stored in `message.payload`
+| client.connect | uuid | when a client connect to the server|
+| client.disconnect | uuid | when a client disconnect from the server|
 
 
 

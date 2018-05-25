@@ -108,7 +108,9 @@ class EPigeonClient {
       'session.update': this._onSessionUpdate.bind(this),
       'message.new': this._onMessageNew.bind(this),
       'message.retry': this._onMessageRetry.bind(this),
-      'message.confirm': this._onMessageConfirm.bind(this)
+      'message.confirm': this._onMessageConfirm.bind(this),
+      'client.connect': this._onClientConnect.bind(this),
+      'client.disconnect': this._onClientDisconnect.bind(this),
     }
     actions[data.action](data.payload)
   }
@@ -200,6 +202,22 @@ class EPigeonClient {
       dbg('message confirmed', message)
     }
   }
+  _onClientConnect(uuid) {
+    dbg('client connected:', uuid)    
+    let client = this.clients.find(c => c.uuid === uuid)
+    if (client !== undefined) {
+      client.state = 'connected'
+      this._ev.emit('client.connect', client)
+    } else this._askClientsList()
+  }
+  _onClientDisconnect(uuid) {
+    dbg('client disconnected:', uuid)
+    let client = this.clients.find(c => c.uuid === uuid)
+    if (client !== undefined) {
+      client.state = 'disconnected'
+      this._ev.emit('client.disconnect', client)
+    } else this._askClientsList()
+  }
   _confirmMessage(message) {
     dbg('confirm message :', message)
     this._net.send(JSON.stringify({
@@ -207,8 +225,15 @@ class EPigeonClient {
       payload: message.uid
     }))
   }
+  _askClientsList() {
+    dbg('ask clients list')
+    if (this.state !== 'disconnected')
+      this._net.send(JSON.stringify({
+        action: 'clients.list',
+        payload: ''
+      }))
+  }
   _sendMessage(message) {
-    if (message.action === 'message.new') message = message.payload
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',

@@ -83,6 +83,27 @@ class EPigeonServer {
         this._clearResendAction(message)
       })
     }
+    this._notifyClientsOfADisconnection(client)
+  }
+  _notifyClientsOfADisconnection(disconnectedClient) {
+    for (let client of this.clients) {
+      if (client.socket !== null) {
+        this._net.send(client.socket, JSON.stringify({
+          action: 'client.disconnect',
+          payload: disconnectedClient.uuid
+        }))
+      }
+    }
+  }
+  _notifyClientsOfAConnection(connectedClient) {
+    for (let client of this.clients) {
+      if (client.uuid !== connectedClient.uuid && client.socket !== null) {
+        this._net.send(client.socket, JSON.stringify({
+          action: 'client.connect',
+          payload: connectedClient.uuid
+        }))
+      }
+    }
   }
   _onData(socket, data) {
     data = JSON.parse(data)
@@ -118,6 +139,7 @@ class EPigeonServer {
     client._sentList.forEach(message => {
       this._sendMessageWithRetry(client.socket, message)
     })
+    this._notifyClientsOfAConnection(client)
     this._tryToSendUnknowDestinatoryMessage(client)
   }
   _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
@@ -235,9 +257,11 @@ class EPigeonServer {
       action: 'clients.list',
       payload: this.clients.map(({
         uuid,
+        state,
         session
       }) => ({
         uuid,
+        state,
         session
       }))
     }))
