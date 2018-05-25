@@ -1,4 +1,4 @@
-# ![logo](https://raw.githubusercontent.com/Lughus/e-pigeon/master/ressources/pigeon.png) e-pigeon
+# ![logo](https://raw.githubusercontent.com/Lughus/e-pigeon/master/ressources/logo.png) e-pigeon
 
 Implementation of an handmade application protocol for messaging
 
