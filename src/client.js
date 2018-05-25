@@ -116,10 +116,22 @@ class EPigeonClient {
    * Handler for the on auth action.
    * You can add an handler with client.on('authenticated',...)
    */
-  _onAuth() {
+  _onAuth(isKnow) {
     dbg('authenticated')
     this.updateSession(this.session)
+    if (isKnow === false && this._hasConnectedOnce === true) {
+      this._resetIndexes()
+    } else this._hasConnectedOnce = true
     this._ev.emit('authenticated')
+  }
+  /**
+   * reset all indexes and lists for the client storage
+   */
+  _resetIndexes() {
+    this._me._lastEmitId = 0
+    this._me._lastSendId = 0
+    this._me._sentList = []
+    this._me._waitList = []
   }
   _authMe() {
     dbg('auth me')

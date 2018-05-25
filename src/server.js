@@ -100,16 +100,18 @@ class EPigeonServer {
   _onAuth(socket, uuid) {
     // find if a client have this uuid if true, set the socket else create new client
     let client = this.clients.find(c => c.uuid === uuid)
-    dbg('client auth :', uuid)
+    let isKnow = true
     if (client === undefined) {
       client = new ClientStorage()
       client.uuid = uuid
       this.clients.push(client)
+      isKnow = false
     }
+    dbg('client auth :', isKnow, uuid)
     client.socket = socket
     this._net.send(socket, JSON.stringify({
       action: 'auth',
-      payload: ''
+      payload: isKnow
     }))
     this._sendClientsList(socket)
     // send messages in the sendlist
