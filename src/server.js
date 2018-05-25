@@ -5,7 +5,9 @@ const NetServerProxy = NetServerProxyNodeIpc
 const MessagePrototype = require('./messagePrototype')
 const ClientStorage = require('./clientStorage')
 
-const dbg = require('debug')('epigeon:server')
+const debug = require('debug')
+const dbg = debug('epigeon:serve')
+const dbgx = debug('epigeon:srv')
 
 class EPigeonServer {
   constructor() {
@@ -134,7 +136,7 @@ class EPigeonServer {
   }
   _updateMessageId(client, message) {
     message.fromId = message.id
-    message.id = client._lastEmitId++
+    message.id = client._lastSendId++
   }
   _onMessageNew(socket, message) {
     /* on new message : many things
@@ -147,37 +149,37 @@ class EPigeonServer {
      */
     const client = this._findFromSocket(socket)
     dbg('message recieved from :', client, message)
+    dbgx('message recieved:', message)
+    dbgx('--- ', client._lastEmitId, message.id)
     this._confirmMessage(socket, message)
     client._waitList.push(message)
-    if (client._lastEmitId === message.id) {
-      // send all in wait list
-      for (
-        let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
-      ) {
-        // find destination client
-        let toClients = this._findFromMessageTo(mess)
-        if (toClients.length === 0) {
-          // put message in unknown list
-          this._unknowList.push(mess)
-        } else {
-          // send message
-          for (let toClient of toClients) {
-            this._clearResendAction(mess)
-            let mess_ = JSON.parse(JSON.stringify(mess))
-            this._updateMessageId(toClient, mess_)
-            toClient._sentList.push(mess_)
-            if (toClient.socket !== null) {
-              this._sendMessageWithRetry(toClient.socket, mess_)
-            }
+    // send all in wait list
+    for (
+      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
+    ) {
+      // find destination client
+      let toClients = this._findFromMessageTo(mess)
+      if (toClients.length === 0) {
+        // put message in unknown list
+        this._unknowList.push(mess)
+      } else {
+        // send message
+        for (let toClient of toClients) {
+          this._clearResendAction(mess)
+          let mess_ = JSON.parse(JSON.stringify(mess))
+          this._updateMessageId(toClient, mess_)
+          toClient._sentList.push(mess_)
+          if (toClient.socket !== null) {
+            this._sendMessageWithRetry(toClient.socket, mess_)
           }
         }
-        // rm from list
-        client._waitList.splice(
-          client._waitList.findIndex(m => m.uid === mess.uid),
-          1
-        )
-        client._lastEmitId += 1
       }
+      // rm from list
+      client._waitList.splice(
+        client._waitList.findIndex(m => m.uid === mess.uid),
+        1
+      )
+      client._lastEmitId += 1
     }
   }
   _onMessageConfirm(socket, uid) {

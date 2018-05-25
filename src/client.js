@@ -224,7 +224,7 @@ class EPigeonClient {
     message.id = this._me._lastSendId++;
     message.payload = messageCnt
     this._me._sentList.push(message)
-    if (this._me.state === 'connected')
+    if (this.state === 'connected')
       this._sendMessageWithRetry(message)
   }
   /**

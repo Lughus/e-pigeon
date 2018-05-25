@@ -1,4 +1,5 @@
-const dbg = require('debug')('epigeon:test')
+const debug = require('debug')
+const dbg = debug('epigeon:test')
 
 const {
   EPigeonClient,
@@ -32,10 +33,8 @@ const clients = Array(5).fill(0).map((a, i) => {
     name: `client_${i}`,
     group: i % 2
   })
-  cli.on('authenticated', () => dbg('authed_' + i))
-  cli.on('connected', () => dbg('connected:' + i))
   cli.on('message', message => {
-    dbg(`${cli.session.name} : ${findFrom(cli.clients,message)}.${message.id} -> ${transformTo(message)} in ${tmspDiff(message)} : ${message.uid} => ${message.payload.message}`)
+    dbg(`${cli.session.name} : ${findFrom(cli.clients,message)}.${message.fromId} -> ${transformTo(message)}.${cli._me._lastEmitId}.${message.id} in ${tmspDiff(message)} : ${message.uid} => ${message.payload.message}`)
   })
   return cli
 })
