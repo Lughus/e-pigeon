@@ -145,7 +145,8 @@ class EPigeonServer {
   _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
     dbg('try to find destinator for :', clients, this._unknowList)
     if (!Array.isArray(clients)) clients = [clients]
-    for (let message of this._unknowList) {
+    for (let messageIndex in this._unknowList) {
+      let message = this._unknowList[messageIndex]
       let dstClients = this._findFromMessageTo(message, clients)
       for (let client of dstClients)
         if (client !== undefined) {
@@ -156,6 +157,8 @@ class EPigeonServer {
           if (client.socket !== undefined)
             this._sendMessageWithRetry(client.socket, message_)
         }
+      if (dstClients.length > 0)
+        this._unknowList.splice(messageIndex, 1)
     }
   }
   _updateMessageId(client, message) {

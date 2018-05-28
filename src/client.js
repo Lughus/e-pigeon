@@ -165,20 +165,18 @@ class EPigeonClient {
     const client = this._me
     dbg('message recieved :', message)
     this._confirmMessage(message)
-    if (client._lastEmitId === message.id) {
-      // send all in wait list
-      for (
-        let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
-      ) {
-        client._waitList.splice(
-          client._waitList.findIndex(m => m.uid === mess.uid),
-          1
-        )
-        client._lastEmitId += 1
-        this._ev.emit('message', message)
-      }
-    } else {
-      client._waitList.push(message)
+    client._waitList.push(message)
+
+    // send all in wait list
+    for (
+      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
+    ) {
+      client._waitList.splice(
+        client._waitList.findIndex(m => m.uid === mess.uid),
+        1
+      )
+      client._lastEmitId += 1
+      this._ev.emit('message', message)
     }
   }
   _onMessageRetry(id) {
@@ -203,7 +201,7 @@ class EPigeonClient {
     }
   }
   _onClientConnect(uuid) {
-    dbg('client connected:', uuid)    
+    dbg('client connected:', uuid)
     let client = this.clients.find(c => c.uuid === uuid)
     if (client !== undefined) {
       client.state = 'connected'
@@ -270,6 +268,9 @@ class EPigeonClient {
    */
   updateSession(object = {}) {
     Object.assign(this._me.session, object)
+    for (let k in this._me.session)
+      if (this._me.session[k] === undefined)
+        delete this._me.session[k]
     dbg('update session')
     if (this.state === 'connected')
       this._net.send(JSON.stringify({
