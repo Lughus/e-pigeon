@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>5</zoom_level>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>295</x>
+      <y>265</y>
+      <w>123</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>title:onData
+Start
+Message received
+Parse message from json
+switch on action property
+*Switch action*
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>930</x>
+      <y>405</y>
+      <w>107</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>title:sendMessage
+Start
+Create the message
+Add it to the sent list
+   if connected\*sendWithRetry*
+
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>440</x>
+      <y>255</y>
+      <w>181</w>
+      <h>148</h>
+    </coordinates>
+    <panel_attributes>title:onConnect
+Start
+Change state to 'connected'
+emit event 'connected'
+Send message with action 'auth' and uuid
+Send messages in the sent list\   (not confirmed messages)
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>795</x>
+      <y>265</y>
+      <w>101</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>title:updateSession
+Start
+update the keys 
+send session to the\server if connected
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>470</x>
+      <y>830</y>
+      <w>127</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>title:auth
+Start
+send the 'session.update'\     with the session
+emit event 'authenticated'
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>290</x>
+      <y>435</y>
+      <w>600</w>
+      <h>520</h>
+    </coordinates>
+    <panel_attributes>Switch action
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>640</x>
+      <y>260</y>
+      <w>142</w>
+      <h>118</h>
+    </coordinates>
+    <panel_attributes>title:onDisconnect
+Start
+Change state to 'disconnected'
+emit event 'disconnected'
+clear resend action on sent list
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>300</x>
+      <y>730</y>
+      <w>150</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>title:message.confirm
+Start
+Find the message from the uid
+Remove message form the client\                   sent list
+clear resend action
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>300</x>
+      <y>870</y>
+      <w>118</w>
+      <h>74</h>
+    </coordinates>
+    <panel_attributes>title:clients.list
+Start
+update the list of clients
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>300</x>
+      <y>460</y>
+      <w>197</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>title:message.new
+Start
+send a confirmation message
+add message in the wait list
+while wait list has the next message
+While
+	remove message from wait list
+	increment last emit id
+	emit event 'message'\  with the message
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>470</x>
+      <y>735</y>
+      <w>111</w>
+      <h>82</h>
+    </coordinates>
+    <panel_attributes>title:message.retry
+Start
+ Resend the message\that match with the id
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>630</x>
+      <y>715</y>
+      <w>187</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>title:session.update
+Start
+emit event 'session.update'
+find client from uuid
+	[found]
+	update the session
+
+	[not]
+	push the payload in\    the clients list
+
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>700</x>
+      <y>460</y>
+      <w>181</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>title:client.disconnect
+Start
+find client from uuid
+	[found]
+	update state of client\    to 'disconnected'
+	emit event 'client.disconnect'
+
+	[not]
+ 	askClientsList
+
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>945</x>
+      <y>255</y>
+      <w>103</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>title:sendWithRetry
+Start
+send message 
+add a resend action\      timeout 2s\  *sendWithRetry*
+End
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.allinone.ActivityDiagramText</type>
+    <coordinates>
+      <x>515</x>
+      <y>460</y>
+      <w>171</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>title:client.connect
+Start
+find client from uuid
+	[found]
+	update state of client\    to 'connected'
+	emit event 'client.connect'
+
+	[not]
+ 	askClientsList
+
+End</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

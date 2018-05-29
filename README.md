@@ -68,7 +68,7 @@ You can add en event handler with `client.on(<event>, <callback>)`
 | connected| - | when the client is connected to the server|
 | disconnected | - | when the client is disconnected|
 | authenticated | - | when the client is authenticated|
-| session-update | {uuid, session} | when a client update his session|
+| session.update | {uuid, session} | when a client update his session|
 | message | message | when a message is recieved, contains many things but the content is stored in `message.payload`
 | client.connect | uuid | when a client connect to the server|
 | client.disconnect | uuid | when a client disconnect from the server|

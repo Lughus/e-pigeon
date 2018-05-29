@@ -61,7 +61,12 @@ server.serve(9999)
 //clients[0].connect('127.0.0.1',9999)
 clients.forEach(c => c.connect('localhost', 9999))
 
-setTimeout(()=>{
-  clients.forEach(c=>c.disconnect())
+setTimeout(() => {
+  Array(3).fill(0).forEach((a, i) => send(0, toc(1), 'xxxxxxxxxxxxxxx_'+i))
+}, 505)
+
+
+setTimeout(() => {
+  clients.forEach(c => c.disconnect())
   server.stop()
-},1000)
+}, 1000)

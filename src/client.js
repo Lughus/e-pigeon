@@ -151,7 +151,7 @@ class EPigeonClient {
    * You can add an handler with client.on('session-update',({uuid,session})=>...)
    */
   _onSessionUpdate(payload) {
-    this._ev.emit('session-update', payload)
+    this._ev.emit('session.update', payload)
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
@@ -165,20 +165,18 @@ class EPigeonClient {
     const client = this._me
     dbg('message recieved :', message)
     this._confirmMessage(message)
-    if (client._lastEmitId === message.id) {
-      // send all in wait list
-      for (
-        let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
-      ) {
-        client._waitList.splice(
-          client._waitList.findIndex(m => m.uid === mess.uid),
-          1
-        )
-        client._lastEmitId += 1
-        this._ev.emit('message', message)
-      }
-    } else {
-      client._waitList.push(message)
+    client._waitList.push(message)
+
+    // send all in wait list
+    for (
+      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1) // maybe an error here
+    ) {
+      client._waitList.splice(
+        client._waitList.findIndex(m => m.uid === mess.uid),
+        1
+      )
+      client._lastEmitId += 1
+      this._ev.emit('message', message)
     }
   }
   _onMessageRetry(id) {
@@ -195,15 +193,12 @@ class EPigeonClient {
     const index = this._me._sentList.findIndex(m => m.uid === uid)
     if (index !== -1) {
       const message = this._me._sentList.splice(index, 1)[0]
-      if (message.resendAction !== undefined) {
-        clearTimeout(message.resendAction)
-        delete message.resendAction
-      }
+      this._clearResendAction(message)
       dbg('message confirmed', message)
     }
   }
   _onClientConnect(uuid) {
-    dbg('client connected:', uuid)    
+    dbg('client connected:', uuid)
     let client = this.clients.find(c => c.uuid === uuid)
     if (client !== undefined) {
       client.state = 'connected'
@@ -234,13 +229,20 @@ class EPigeonClient {
       }))
   }
   _sendMessage(message) {
+    this._clearResendAction(message)    
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',
       payload: message
     }))
   }
-  _sendMessageWithRetry(message) {
+  _clearResendAction(message) {
+    if (message.resendAction !== undefined) {
+      clearInterval(message.resendAction)
+      delete message.resendAction
+    }
+  }
+  async _sendMessageWithRetry(message) {
     this._sendMessage(message)
     message.resendAction = setTimeout(() => {
       this._sendMessageWithRetry(message)
@@ -270,6 +272,9 @@ class EPigeonClient {
    */
   updateSession(object = {}) {
     Object.assign(this._me.session, object)
+    for (let k in this._me.session)
+      if (this._me.session[k] === undefined)
+        delete this._me.session[k]
     dbg('update session')
     if (this.state === 'connected')
       this._net.send(JSON.stringify({
