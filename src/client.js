@@ -151,7 +151,7 @@ class EPigeonClient {
    * You can add an handler with client.on('session-update',({uuid,session})=>...)
    */
   _onSessionUpdate(payload) {
-    this._ev.emit('session-update', payload)
+    this._ev.emit('session.update', payload)
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
@@ -169,7 +169,7 @@ class EPigeonClient {
 
     // send all in wait list
     for (
-      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)
+      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1) // maybe an error here
     ) {
       client._waitList.splice(
         client._waitList.findIndex(m => m.uid === mess.uid),
