@@ -193,10 +193,7 @@ class EPigeonClient {
     const index = this._me._sentList.findIndex(m => m.uid === uid)
     if (index !== -1) {
       const message = this._me._sentList.splice(index, 1)[0]
-      if (message.resendAction !== undefined) {
-        clearTimeout(message.resendAction)
-        delete message.resendAction
-      }
+      this._clearResendAction(message)
       dbg('message confirmed', message)
     }
   }
@@ -232,13 +229,20 @@ class EPigeonClient {
       }))
   }
   _sendMessage(message) {
+    this._clearResendAction(message)    
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',
       payload: message
     }))
   }
-  _sendMessageWithRetry(message) {
+  _clearResendAction(message) {
+    if (message.resendAction !== undefined) {
+      clearInterval(message.resendAction)
+      delete message.resendAction
+    }
+  }
+  async _sendMessageWithRetry(message) {
     this._sendMessage(message)
     message.resendAction = setTimeout(() => {
       this._sendMessageWithRetry(message)
