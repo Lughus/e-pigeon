@@ -64,7 +64,7 @@ class EPigeonClient {
    * @param {function}
    */
   off(event, callback) {
-    this._ev.off(event, callback)
+    this._ev.removeListener(event, callback)
   }
   _initEvents() {
     this._net.ev.on('connected', this._onConnect.bind(this))
@@ -80,11 +80,6 @@ class EPigeonClient {
     dbg('connected')
     this._ev.emit('connected')
     this._authMe()
-    setTimeout(() => {
-      this._me._sentList.forEach(message => {
-        this._sendMessageWithRetry(message)
-      })
-    }, 500)
   }
   /**
    * Handler for the on disconnect action.
@@ -125,6 +120,9 @@ class EPigeonClient {
       this._resetIndexes()
     } else this._hasConnectedOnce = true
     this._ev.emit('authenticated')
+    this._me._sentList.forEach(message => {
+      this._sendMessageWithRetry(message)
+    })
   }
   /**
    * reset all indexes and lists for the client storage
