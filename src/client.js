@@ -152,6 +152,7 @@ class EPigeonClient {
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
+    else client.session = payload.session
     this._ev.emit('session.update', payload)
   }
   /**
@@ -226,7 +227,7 @@ class EPigeonClient {
       }))
   }
   _sendMessage(message) {
-    this._clearResendAction(message)    
+    this._clearResendAction(message)
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',
