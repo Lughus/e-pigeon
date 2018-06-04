@@ -276,7 +276,7 @@ class EPigeonServer {
   }
   _clearResendAction(message) {
     if (message.resendAction !== undefined) {
-      clearInterval(message.resendAction)
+      clearTimeout(message.resendAction)
       delete message.resendAction
     }
   }
