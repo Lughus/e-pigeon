@@ -149,11 +149,10 @@ class EPigeonClient {
    * You can add an handler with client.on('session-update',({uuid,session})=>...)
    */
   _onSessionUpdate(payload) {
-    this._ev.emit('session.update', payload)
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
-    else client.session = payload.session
+    this._ev.emit('session.update', payload)
   }
   /**
    * Handler for the on message action.
