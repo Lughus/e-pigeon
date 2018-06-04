@@ -315,7 +315,7 @@ class EPigeonServer {
       }
     })
     this.clients.forEach(c => {
-      if (c.socket !== null && c.uuid !== client.uuid) {
+      if (c.socket !== null) {
         this._net.send(c.socket, data)
       }
     })

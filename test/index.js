@@ -66,7 +66,7 @@ setTimeout(() => {
 }, 505)
 
 
-setTimeout(() => {
+/*setTimeout(() => {
   clients.forEach(c => c.disconnect())
   server.stop()
-}, 1000)
+}, 100000)*/
