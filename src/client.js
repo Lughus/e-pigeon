@@ -64,7 +64,7 @@ class EPigeonClient {
    * @param {function}
    */
   off(event, callback) {
-    this._ev.off(event, callback)
+    this._ev.removeListener(event, callback)
   }
   _initEvents() {
     this._net.ev.on('connected', this._onConnect.bind(this))
@@ -80,11 +80,6 @@ class EPigeonClient {
     dbg('connected')
     this._ev.emit('connected')
     this._authMe()
-    setTimeout(() => {
-      this._me._sentList.forEach(message => {
-        this._sendMessageWithRetry(message)
-      })
-    }, 500)
   }
   /**
    * Handler for the on disconnect action.
@@ -125,6 +120,9 @@ class EPigeonClient {
       this._resetIndexes()
     } else this._hasConnectedOnce = true
     this._ev.emit('authenticated')
+    this._me._sentList.forEach(message => {
+      this._sendMessageWithRetry(message)
+    })
   }
   /**
    * reset all indexes and lists for the client storage
@@ -151,11 +149,11 @@ class EPigeonClient {
    * You can add an handler with client.on('session-update',({uuid,session})=>...)
    */
   _onSessionUpdate(payload) {
-    this._ev.emit('session.update', payload)
     let client = this._clients.find(c => c.uuid === payload.uuid)
     dbg('recieved session for client :', client, payload)
     if (client === undefined) this._clients.push(payload)
     else client.session = payload.session
+    this._ev.emit('session.update', payload)
   }
   /**
    * Handler for the on message action.
@@ -229,7 +227,7 @@ class EPigeonClient {
       }))
   }
   _sendMessage(message) {
-    this._clearResendAction(message)    
+    this._clearResendAction(message)
     dbg('send new message:', message)
     this._net.send(JSON.stringify({
       action: 'message.new',
@@ -238,7 +236,7 @@ class EPigeonClient {
   }
   _clearResendAction(message) {
     if (message.resendAction !== undefined) {
-      clearInterval(message.resendAction)
+      clearTimeout(message.resendAction)
       delete message.resendAction
     }
   }
