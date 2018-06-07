@@ -61,7 +61,7 @@ class EPigeonServer {
     let dstClients = []
     dbg('find client:', clients, message)
     if (typeof message.to === 'string') {
-      let client = clients.find(c => c.uuid = message.to)
+      let client = clients.find(c => c.uuid === message.to)
       if (client !== undefined) dstClients.push(client)
     } else if (typeof message.to === 'object') {
       for (let client of clients)
@@ -177,7 +177,6 @@ class EPigeonServer {
     const client = this._findFromSocket(socket)
     dbg('message recieved from :', client, message)
     dbgx('message recieved:', message)
-    dbgx('--- ', client._lastEmitId, message.id)
     this._confirmMessage(socket, message)
     client._waitList.push(message)
     // send all in wait list
@@ -311,6 +310,7 @@ class EPigeonServer {
       action: 'session.update',
       payload: {
         uuid: client.uuid,
+        connected: true,
         session
       }
     })
