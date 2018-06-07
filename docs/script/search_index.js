@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@lug/e-pigeon/src/clientstorage.js~clientstorage",
+    "class/src/clientStorage.js~ClientStorage.html",
+    "<span>ClientStorage</span> <span class=\"search-result-import-path\">@lug/e-pigeon/src/clientStorage.js</span>",
+    "class"
+  ],
+  [
     "@lug/e-pigeon/src/client.js~epigeonclient",
     "class/src/client.js~EPigeonClient.html",
     "<span>EPigeonClient</span> <span class=\"search-result-import-path\">@lug/e-pigeon/src/client.js</span>",
@@ -9,6 +15,12 @@ window.esdocSearchIndex = [
     "@lug/e-pigeon/src/server.js~epigeonserver",
     "class/src/server.js~EPigeonServer.html",
     "<span>EPigeonServer</span> <span class=\"search-result-import-path\">@lug/e-pigeon/src/server.js</span>",
+    "class"
+  ],
+  [
+    "@lug/e-pigeon/src/messageprototype.js~messageprototype",
+    "class/src/messagePrototype.js~MessagePrototype.html",
+    "<span>MessagePrototype</span> <span class=\"search-result-import-path\">@lug/e-pigeon/src/messagePrototype.js</span>",
     "class"
   ],
   [
@@ -522,10 +534,100 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/clientstorage.js~clientstorage#_lastemitid",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-_lastEmitId",
+    "src/clientStorage.js~ClientStorage#_lastEmitId",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#_lastsendid",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-_lastSendId",
+    "src/clientStorage.js~ClientStorage#_lastSendId",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#_sentlist",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-_sentList",
+    "src/clientStorage.js~ClientStorage#_sentList",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#_waitlist",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-_waitList",
+    "src/clientStorage.js~ClientStorage#_waitList",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#constructor",
+    "class/src/clientStorage.js~ClientStorage.html#instance-constructor-constructor",
+    "src/clientStorage.js~ClientStorage#constructor",
+    "method"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#session",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-session",
+    "src/clientStorage.js~ClientStorage#session",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#socket",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-socket",
+    "src/clientStorage.js~ClientStorage#socket",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#state",
+    "class/src/clientStorage.js~ClientStorage.html#instance-get-state",
+    "src/clientStorage.js~ClientStorage#state",
+    "member"
+  ],
+  [
+    "src/clientstorage.js~clientstorage#uuid",
+    "class/src/clientStorage.js~ClientStorage.html#instance-member-uuid",
+    "src/clientStorage.js~ClientStorage#uuid",
+    "member"
+  ],
+  [
     "src/messageprototype.js",
     "file/src/messagePrototype.js.html",
     "src/messagePrototype.js",
     "file"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#constructor",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-constructor-constructor",
+    "src/messagePrototype.js~MessagePrototype#constructor",
+    "method"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#from",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-member-from",
+    "src/messagePrototype.js~MessagePrototype#from",
+    "member"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#id",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-member-id",
+    "src/messagePrototype.js~MessagePrototype#id",
+    "member"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#payload",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-member-payload",
+    "src/messagePrototype.js~MessagePrototype#payload",
+    "member"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#to",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-member-to",
+    "src/messagePrototype.js~MessagePrototype#to",
+    "member"
+  ],
+  [
+    "src/messageprototype.js~messageprototype#uid",
+    "class/src/messagePrototype.js~MessagePrototype.html#instance-member-uid",
+    "src/messagePrototype.js~MessagePrototype#uid",
+    "member"
   ],
   [
     "src/server.js",

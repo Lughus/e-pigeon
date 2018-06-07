@@ -30,6 +30,8 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~EPigeonClient.html">EPigeonClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html">EPigeonServer</a></span></span></li>
 </ul>
 </div>
@@ -129,7 +131,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-member-clients">clients</a></span></span><span class="code" data-ice="signature">: <span><span>ClientStorage</span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-member-clients">clients</a></span></span><span class="code" data-ice="signature">: <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -193,7 +195,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-member-_unknowList">_unknowList</a></span></span><span class="code" data-ice="signature">: <span><span>MessagePrototype</span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-member-_unknowList">_unknowList</a></span></span><span class="code" data-ice="signature">: <span><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -349,7 +351,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-method-_findFromMessageTo">_findFromMessageTo</a></span></span><span class="code" data-ice="signature">(message: <span>MessagePrototype</span>, clients: <span><span>ClientStorage</span><span>[]</span></span>): <span><span>ClientStorage</span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-method-_findFromMessageTo">_findFromMessageTo</a></span></span><span class="code" data-ice="signature">(message: <span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span>, clients: <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span>): <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -378,7 +380,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-method-_findFromSocket">_findFromSocket</a></span></span><span class="code" data-ice="signature">(socket: <span>Socket</span> | <span>any</span>): <span>ClientStorage?</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html#instance-method-_findFromSocket">_findFromSocket</a></span></span><span class="code" data-ice="signature">(socket: <span>Socket</span> | <span>any</span>): <span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span>
         </p>
       </div>
       <div>
@@ -933,7 +935,7 @@
     
     
     
-    <span class="code" data-ice="name">clients</span><span class="code" data-ice="signature">: <span><span>ClientStorage</span><span>[]</span></span></span>
+    <span class="code" data-ice="name">clients</span><span class="code" data-ice="signature">: <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
@@ -1023,7 +1025,7 @@
     
     
     
-    <span class="code" data-ice="name">_unknowList</span><span class="code" data-ice="signature">: <span><span>MessagePrototype</span><span>[]</span></span></span>
+    <span class="code" data-ice="name">_unknowList</span><span class="code" data-ice="signature">: <span><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
@@ -1301,7 +1303,7 @@
     
     
     
-    <span class="code" data-ice="name">_findFromMessageTo</span><span class="code" data-ice="signature">(message: <span>MessagePrototype</span>, clients: <span><span>ClientStorage</span><span>[]</span></span>): <span><span>ClientStorage</span><span>[]</span></span></span>
+    <span class="code" data-ice="name">_findFromMessageTo</span><span class="code" data-ice="signature">(message: <span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span>, clients: <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span>): <span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></span>
     <span class="right-info">
       
       
@@ -1327,14 +1329,14 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">message</td>
-      <td data-ice="type" class="code"><span>MessagePrototype</span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>the message that contanin the destinator</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">clients</td>
-      <td data-ice="type" class="code"><span><span>ClientStorage</span><span>[]</span></span></td>
+      <td data-ice="type" class="code"><span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>the clients that we need to find in a destinator</p>
 </td>
@@ -1349,7 +1351,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><span>ClientStorage</span><span>[]</span></span></td>
+          <td class="return-type code" data-ice="returnType"><span><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span><span>[]</span></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>clients that correspond to message.to</p>
 </td>
         </tr>
@@ -1382,7 +1384,7 @@
     
     
     
-    <span class="code" data-ice="name">_findFromSocket</span><span class="code" data-ice="signature">(socket: <span>Socket</span> | <span>any</span>): <span>ClientStorage?</span></span>
+    <span class="code" data-ice="name">_findFromSocket</span><span class="code" data-ice="signature">(socket: <span>Socket</span> | <span>any</span>): <span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span>
     <span class="right-info">
       
       
@@ -1423,7 +1425,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>ClientStorage?</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></td>
           <td class="return-desc" data-ice="returnDescription"><p>the client wha as this socket</p>
 </td>
         </tr>

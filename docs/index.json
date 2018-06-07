@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/client.js",
-    "content": "const {\r\n  NetClientProxyNodeIpc\r\n} = require('@lug/netproxy-node-ipc')\r\nconst NetClientProxy = NetClientProxyNodeIpc\r\nconst MessagePrototype = require('./messagePrototype')\r\nconst ClientStorage = require('./clientStorage')\r\n\r\nconst Events = require('events')\r\n\r\nconst dbg = require('debug')('epigeon:client')\r\n\r\n/**\r\n * Client api for communcation\r\n */\r\nclass EPigeonClient {\r\n  constructor() {\r\n    /**\r\n     * Interface that is used to send message\r\n     * @type {NetClientProxy}\r\n     */\r\n    this._net = new NetClientProxy\r\n    this._me = new ClientStorage\r\n    this._clients = []\r\n    this._state = 'disconnected'\r\n    this._ev = new Events\r\n    this._initEvents()\r\n  }\r\n  /**\r\n   * clients that has been connected to the server {uuid, session}\r\n   * @type {objcet[]}\r\n   */\r\n  get clients() {\r\n    return this._clients\r\n  }\r\n  /**\r\n   * uuid of this client\r\n   * @type {string}\r\n   */\r\n  get uuid() {\r\n    return this._me.uuid\r\n  }\r\n  /**\r\n   * Session of this client\r\n   * @type {object}\r\n   */\r\n  get session() {\r\n    return this._me.session\r\n  }\r\n  /**\r\n   * State of the client; can be \"connected\" or \"disconnected\"\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this._state\r\n  }\r\n  /**\r\n   * Define event callback (Emitter)\r\n   * @param {string} event  the name of the event\r\n   * @param {function} callback You know what to do no ?\r\n   */\r\n  on(event, callback) {\r\n    this._ev.on(event, callback)\r\n  }\r\n  /**\r\n   * Disable an event\r\n   * @param {string} event the name of the event\r\n   * @param {function} callback the callback you want to disable\r\n   */\r\n  off(event, callback) {\r\n    this._ev.removeListener(event, callback)\r\n  }\r\n  _initEvents() {\r\n    this._net.ev.on('connected', this._onConnect.bind(this))\r\n    this._net.ev.on('disconnect', this._onDisconnect.bind(this))\r\n    this._net.ev.on('data', this._onData.bind(this))\r\n  }\r\n  /**\r\n   * Handler for the on connect action.\r\n   * You can add an handler with client.on('connected',...)\r\n   */\r\n  _onConnect() {\r\n    this._state = 'connected'\r\n    dbg('connected')\r\n    this._ev.emit('connected')\r\n    this._authMe()\r\n  }\r\n  /**\r\n   * Handler for the on disconnect action.\r\n   * You can add an handler with client.on('disconnected',...)\r\n   */\r\n  _onDisconnect() {\r\n    this._state = 'disconnected'\r\n    this._ev.emit('disconnected')\r\n    this._me._sentList.forEach(message => {\r\n      if (message.resendAction !== undefined) {\r\n        clearTimeout(message.resendAction)\r\n        delete message.resendAction\r\n      }\r\n    })\r\n  }\r\n  _onData(data) {\r\n    data = JSON.parse(data)\r\n    let actions = {\r\n      'auth': this._onAuth.bind(this),\r\n      'clients.list': this._onClientsList.bind(this),\r\n      'session.update': this._onSessionUpdate.bind(this),\r\n      'message.new': this._onMessageNew.bind(this),\r\n      'message.retry': this._onMessageRetry.bind(this),\r\n      'message.confirm': this._onMessageConfirm.bind(this),\r\n      'client.connect': this._onClientConnect.bind(this),\r\n      'client.disconnect': this._onClientDisconnect.bind(this),\r\n    }\r\n    actions[data.action](data.payload)\r\n  }\r\n  /**\r\n   * Handler for the on auth action.\r\n   * You can add an handler with client.on('authenticated',...)\r\n   */\r\n  _onAuth(isKnow) {\r\n    dbg('authenticated')\r\n    this.updateSession(this.session)\r\n    if (isKnow === false && this._hasConnectedOnce === true) {\r\n      this._resetIndexes()\r\n    } else this._hasConnectedOnce = true\r\n    this._ev.emit('authenticated')\r\n    this._me._sentList.forEach(message => {\r\n      this._sendMessageWithRetry(message)\r\n    })\r\n  }\r\n  /**\r\n   * reset all indexes and lists for the client storage\r\n   */\r\n  _resetIndexes() {\r\n    this._me._lastEmitId = 0\r\n    this._me._lastSendId = 0\r\n    this._me._sentList = []\r\n    this._me._waitList = []\r\n  }\r\n  _authMe() {\r\n    dbg('auth me')\r\n    this._net.send(JSON.stringify({\r\n      action: 'auth',\r\n      payload: this._me.uuid\r\n    }))\r\n  }\r\n  _onClientsList(list) {\r\n    dbg('recieved client list :', list)\r\n    this._clients = list\r\n  }\r\n  /**\r\n   * Handler for the on sessionUpdate action.\r\n   * You can add an handler with client.on('session-update',({uuid,session})=>...)\r\n   */\r\n  _onSessionUpdate(payload) {\r\n    let client = this._clients.find(c => c.uuid === payload.uuid)\r\n    dbg('recieved session for client :', client, payload)\r\n    if (client === undefined) this._clients.push(payload)\r\n    else client.session = payload.session\r\n    this._ev.emit('session.update', payload)\r\n  }\r\n  /**\r\n   * Handler for the on message action.\r\n   * You can add an handler with client.on('message',message=>...)\r\n   */\r\n  _onMessageNew(message) {\r\n    const client = this._me\r\n    dbg('message recieved :', message)\r\n    this._confirmMessage(message)\r\n    client._waitList.push(message)\r\n\r\n    // send all in wait list\r\n    for (\r\n      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1) // maybe an error here\r\n    ) {\r\n      client._waitList.splice(\r\n        client._waitList.findIndex(m => m.uid === mess.uid),\r\n        1\r\n      )\r\n      client._lastEmitId += 1\r\n      this._ev.emit('message', message)\r\n    }\r\n  }\r\n  _onMessageRetry(id) {\r\n    const message = this._me._sentList.find(m => m.id === id)\r\n    dbg('message retry asked :', message)\r\n    if (message !== undefined) this._sendMessage(message)\r\n    else\r\n      console.error(\r\n        Error('Message retry asked but cannot find message'),\r\n        uid\r\n      )\r\n  }\r\n  _onMessageConfirm(uid) {\r\n    const index = this._me._sentList.findIndex(m => m.uid === uid)\r\n    if (index !== -1) {\r\n      const message = this._me._sentList.splice(index, 1)[0]\r\n      this._clearResendAction(message)\r\n      dbg('message confirmed', message)\r\n    }\r\n  }\r\n  _onClientConnect(uuid) {\r\n    dbg('client connected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'connected'\r\n      this._ev.emit('client.connect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _onClientDisconnect(uuid) {\r\n    dbg('client disconnected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'disconnected'\r\n      this._ev.emit('client.disconnect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _confirmMessage(message) {\r\n    dbg('confirm message :', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.confirm',\r\n      payload: message.uid\r\n    }))\r\n  }\r\n  _askClientsList() {\r\n    dbg('ask clients list')\r\n    if (this.state !== 'disconnected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'clients.list',\r\n        payload: ''\r\n      }))\r\n  }\r\n  _sendMessage(message) {\r\n    this._clearResendAction(message)\r\n    dbg('send new message:', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.new',\r\n      payload: message\r\n    }))\r\n  }\r\n  _clearResendAction(message) {\r\n    if (message.resendAction !== undefined) {\r\n      clearTimeout(message.resendAction)\r\n      delete message.resendAction\r\n    }\r\n  }\r\n  async _sendMessageWithRetry(message) {\r\n    this._sendMessage(message)\r\n    message.resendAction = setTimeout(() => {\r\n      this._sendMessageWithRetry(message)\r\n    }, 2000)\r\n  }\r\n  /**\r\n   * Send a message to another client\r\n   * @param {string|object} to string : uuid of the destination client ||\r\n   * object : {key:value} that correspond to the session of the client \r\n   * ; can correspond to many like a group\r\n   * @param {any} messageCnt Content of the message \r\n   */\r\n  sendMessage(to, messageCnt) {\r\n    dbg('send message to:', to, messageCnt)\r\n    const message = new MessagePrototype\r\n    message.from = this._me.uuid\r\n    message.to = to\r\n    message.id = this._me._lastSendId++;\r\n    message.payload = messageCnt\r\n    this._me._sentList.push(message)\r\n    if (this.state === 'connected')\r\n      this._sendMessageWithRetry(message)\r\n  }\r\n  /**\r\n   * Update your session object and send it to the others connected client\r\n   * @param {object} object some key:value that you need to change in the session\r\n   */\r\n  updateSession(object = {}) {\r\n    Object.assign(this._me.session, object)\r\n    for (let k in this._me.session)\r\n      if (this._me.session[k] === undefined)\r\n        delete this._me.session[k]\r\n    dbg('update session')\r\n    if (this.state === 'connected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'session.update',\r\n        payload: this._me.session\r\n      }))\r\n  }\r\n  /**\r\n   * try to connect to the server, try to the infinite\r\n   * @param {string} ip the ip or dns of the server\r\n   * @param {Int} port the port of the server \r\n   */\r\n  connect(ip, port) {\r\n    dbg('connect:', ip, port)\r\n    this._net.connect(ip, port)\r\n  }\r\n  /**\r\n   * disconnect the client\r\n   */\r\n  disconnect() {\r\n    dbg('disconnect')\r\n    this._net.disconnect()\r\n  }\r\n}\r\nexport default EPigeonClient\r\nmodule.exports = EPigeonClient",
+    "content": "const {\r\n  NetClientProxyNodeIpc\r\n} = require('@lug/netproxy-node-ipc')\r\nconst NetClientProxy = NetClientProxyNodeIpc\r\nconst MessagePrototype = require('./messagePrototype')\r\nconst ClientStorage = require('./clientStorage')\r\n\r\nconst Events = require('events')\r\n\r\nconst dbg = require('debug')('epigeon:client')\r\n\r\nexport default class EPigeonClient {\r\n  constructor() {\r\n    /**\r\n     * Interface that is used to send message\r\n     * @type {NetClientProxy}\r\n     */\r\n    this._net = new NetClientProxy\r\n    this._me = new ClientStorage\r\n    this._clients = []\r\n    this._state = 'disconnected'\r\n    this._ev = new Events\r\n    this._initEvents()\r\n  }\r\n  /**\r\n   * clients that has been connected to the server {uuid, session}\r\n   * @type {objcet[]}\r\n   */\r\n  get clients() {\r\n    return this._clients\r\n  }\r\n  /**\r\n   * uuid of this client\r\n   * @type {string}\r\n   */\r\n  get uuid() {\r\n    return this._me.uuid\r\n  }\r\n  /**\r\n   * Session of this client\r\n   * @type {object}\r\n   */\r\n  get session() {\r\n    return this._me.session\r\n  }\r\n  /**\r\n   * State of the client; can be \"connected\" or \"disconnected\"\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this._state\r\n  }\r\n  /**\r\n   * Define event callback (Emitter)\r\n   * @param {string} event  the name of the event\r\n   * @param {function} callback YKWTD :)\r\n   */\r\n  on(event, callback) {\r\n    this._ev.on(event, callback)\r\n  }\r\n  /**\r\n   * Disable an event\r\n   * @param {string} event the name of the event\r\n   * @param {function} callback clabback linked that u want to remove\r\n   */\r\n  off(event, callback) {\r\n    this._ev.removeListener(event, callback)\r\n  }\r\n  _initEvents() {\r\n    this._net.ev.on('connected', this._onConnect.bind(this))\r\n    this._net.ev.on('disconnect', this._onDisconnect.bind(this))\r\n    this._net.ev.on('data', this._onData.bind(this))\r\n  }\r\n  /**\r\n   * Handler for the on connect action.\r\n   * You can add an handler with client.on('connected',...)\r\n   */\r\n  _onConnect() {\r\n    this._state = 'connected'\r\n    dbg('connected')\r\n    this._ev.emit('connected')\r\n    this._authMe()\r\n  }\r\n  /**\r\n   * Handler for the on disconnect action.\r\n   * You can add an handler with client.on('disconnected',...)\r\n   */\r\n  _onDisconnect() {\r\n    this._state = 'disconnected'\r\n    this._ev.emit('disconnected')\r\n    this._me._sentList.forEach(message => {\r\n      if (message.resendAction !== undefined) {\r\n        clearTimeout(message.resendAction)\r\n        delete message.resendAction\r\n      }\r\n    })\r\n  }\r\n  _onData(data) {\r\n    data = JSON.parse(data)\r\n    let actions = {\r\n      'auth': this._onAuth.bind(this),\r\n      'clients.list': this._onClientsList.bind(this),\r\n      'session.update': this._onSessionUpdate.bind(this),\r\n      'message.new': this._onMessageNew.bind(this),\r\n      'message.retry': this._onMessageRetry.bind(this),\r\n      'message.confirm': this._onMessageConfirm.bind(this),\r\n      'client.connect': this._onClientConnect.bind(this),\r\n      'client.disconnect': this._onClientDisconnect.bind(this),\r\n    }\r\n    actions[data.action](data.payload)\r\n  }\r\n  /**\r\n   * Handler for the on auth action.\r\n   * You can add an handler with client.on('authenticated',...)\r\n   */\r\n  _onAuth(isKnow) {\r\n    dbg('authenticated')\r\n    this.updateSession(this.session)\r\n    if (isKnow === false && this._hasConnectedOnce === true) {\r\n      this._resetIndexes()\r\n    } else this._hasConnectedOnce = true\r\n    this._ev.emit('authenticated')\r\n    this._me._sentList.forEach(message => {\r\n      this._sendMessageWithRetry(message)\r\n    })\r\n  }\r\n  /**\r\n   * reset all indexes and lists for the client storage\r\n   */\r\n  _resetIndexes() {\r\n    this._me._lastEmitId = 0\r\n    this._me._lastSendId = 0\r\n    this._me._sentList = []\r\n    this._me._waitList = []\r\n  }\r\n  _authMe() {\r\n    dbg('auth me')\r\n    this._net.send(JSON.stringify({\r\n      action: 'auth',\r\n      payload: this._me.uuid\r\n    }))\r\n  }\r\n  _onClientsList(list) {\r\n    dbg('recieved client list :', list)\r\n    this._clients = list\r\n  }\r\n  /**\r\n   * Handler for the on sessionUpdate action.\r\n   * You can add an handler with client.on('session-update',({uuid,session})=>...)\r\n   */\r\n  _onSessionUpdate(payload) {\r\n    let client = this._clients.find(c => c.uuid === payload.uuid)\r\n    dbg('recieved session for client :', client, payload)\r\n    if (client === undefined) this._clients.push(payload)\r\n    else client.session = payload.session\r\n    this._ev.emit('session.update', payload)\r\n  }\r\n  /**\r\n   * Handler for the on message action.\r\n   * You can add an handler with client.on('message',message=>...)\r\n   */\r\n  _onMessageNew(message) {\r\n    const client = this._me\r\n    dbg('message recieved :', message)\r\n    this._confirmMessage(message)\r\n    client._waitList.push(message)\r\n\r\n    // send all in wait list\r\n    for (\r\n      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1) // maybe an error here\r\n    ) {\r\n      client._waitList.splice(\r\n        client._waitList.findIndex(m => m.uid === mess.uid),\r\n        1\r\n      )\r\n      client._lastEmitId += 1\r\n      this._ev.emit('message', message)\r\n    }\r\n  }\r\n  _onMessageRetry(id) {\r\n    const message = this._me._sentList.find(m => m.id === id)\r\n    dbg('message retry asked :', message)\r\n    if (message !== undefined) this._sendMessage(message)\r\n    else\r\n      console.error(\r\n        Error('Message retry asked but cannot find message'),\r\n        uid\r\n      )\r\n  }\r\n  _onMessageConfirm(uid) {\r\n    const index = this._me._sentList.findIndex(m => m.uid === uid)\r\n    if (index !== -1) {\r\n      const message = this._me._sentList.splice(index, 1)[0]\r\n      this._clearResendAction(message)\r\n      dbg('message confirmed', message)\r\n    }\r\n  }\r\n  _onClientConnect(uuid) {\r\n    dbg('client connected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'connected'\r\n      this._ev.emit('client.connect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _onClientDisconnect(uuid) {\r\n    dbg('client disconnected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'disconnected'\r\n      this._ev.emit('client.disconnect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _confirmMessage(message) {\r\n    dbg('confirm message :', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.confirm',\r\n      payload: message.uid\r\n    }))\r\n  }\r\n  _askClientsList() {\r\n    dbg('ask clients list')\r\n    if (this.state !== 'disconnected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'clients.list',\r\n        payload: ''\r\n      }))\r\n  }\r\n  _sendMessage(message) {\r\n    this._clearResendAction(message)\r\n    dbg('send new message:', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.new',\r\n      payload: message\r\n    }))\r\n  }\r\n  _clearResendAction(message) {\r\n    if (message.resendAction !== undefined) {\r\n      clearTimeout(message.resendAction)\r\n      delete message.resendAction\r\n    }\r\n  }\r\n  async _sendMessageWithRetry(message) {\r\n    this._sendMessage(message)\r\n    message.resendAction = setTimeout(() => {\r\n      this._sendMessageWithRetry(message)\r\n    }, 2000)\r\n  }\r\n  /**\r\n   * Send a message to another client\r\n   * @param {string|object} to string : uuid of the destination client ||\r\n   * object : {key:value} that correspond to the session of the client \r\n   * ; can correspond to many like a group\r\n   * @param {any} messageCnt Content of the message \r\n   */\r\n  sendMessage(to, messageCnt) {\r\n    dbg('send message to:', to, messageCnt)\r\n    const message = new MessagePrototype\r\n    message.from = this._me.uuid\r\n    message.to = to\r\n    message.id = this._me._lastSendId++;\r\n    message.payload = messageCnt\r\n    this._me._sentList.push(message)\r\n    if (this.state === 'connected')\r\n      this._sendMessageWithRetry(message)\r\n  }\r\n  /**\r\n   * Update your session object and send it to the others connected client\r\n   * @param {object} object some key:value that you need to change in the session\r\n   */\r\n  updateSession(object = {}) {\r\n    Object.assign(this._me.session, object)\r\n    for (let k in this._me.session)\r\n      if (this._me.session[k] === undefined)\r\n        delete this._me.session[k]\r\n    dbg('update session')\r\n    if (this.state === 'connected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'session.update',\r\n        payload: this._me.session\r\n      }))\r\n  }\r\n  /**\r\n   * try to connect to the server, try to the infinite\r\n   * @param {string} ip the ip or dns of the server\r\n   * @param {Int} port the port of the server \r\n   */\r\n  connect(ip, port) {\r\n    dbg('connect:', ip, port)\r\n    this._net.connect(ip, port)\r\n  }\r\n  /**\r\n   * disconnect the client\r\n   */\r\n  disconnect() {\r\n    dbg('disconnect')\r\n    this._net.disconnect()\r\n  }\r\n}\r\n\r\nmodule.exports = EPigeonClient",
     "static": true,
     "longname": "C:/Users/eso/gh/e-pigeon/src/client.js",
     "access": "public",
@@ -711,8 +711,9 @@
     "export": true,
     "importPath": "@lug/e-pigeon/src/client.js",
     "importStyle": "EPigeonClient",
-    "description": "Client api for communcation",
-    "lineNumber": 15,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
     "interface": false
   },
   {
@@ -726,7 +727,7 @@
     "longname": "src/client.js~EPigeonClient#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 13,
     "undocument": true
   },
   {
@@ -738,7 +739,7 @@
     "longname": "src/client.js~EPigeonClient#_net",
     "access": "private",
     "description": "Interface that is used to send message",
-    "lineNumber": 21,
+    "lineNumber": 18,
     "type": {
       "nullable": null,
       "types": [
@@ -757,7 +758,7 @@
     "longname": "src/client.js~EPigeonClient#_me",
     "access": "private",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 19,
     "undocument": true,
     "type": {
       "types": [
@@ -774,7 +775,7 @@
     "longname": "src/client.js~EPigeonClient#_clients",
     "access": "private",
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -791,7 +792,7 @@
     "longname": "src/client.js~EPigeonClient#_state",
     "access": "private",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 21,
     "undocument": true,
     "type": {
       "types": [
@@ -808,7 +809,7 @@
     "longname": "src/client.js~EPigeonClient#_ev",
     "access": "private",
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 22,
     "undocument": true,
     "type": {
       "types": [
@@ -827,7 +828,7 @@
     "longname": "src/client.js~EPigeonClient#clients",
     "access": "public",
     "description": "clients that has been connected to the server {uuid, session}",
-    "lineNumber": 32,
+    "lineNumber": 29,
     "type": {
       "nullable": null,
       "types": [
@@ -848,7 +849,7 @@
     "longname": "src/client.js~EPigeonClient#uuid",
     "access": "public",
     "description": "uuid of this client",
-    "lineNumber": 39,
+    "lineNumber": 36,
     "type": {
       "nullable": null,
       "types": [
@@ -869,7 +870,7 @@
     "longname": "src/client.js~EPigeonClient#session",
     "access": "public",
     "description": "Session of this client",
-    "lineNumber": 46,
+    "lineNumber": 43,
     "type": {
       "nullable": null,
       "types": [
@@ -890,7 +891,7 @@
     "longname": "src/client.js~EPigeonClient#state",
     "access": "public",
     "description": "State of the client; can be \"connected\" or \"disconnected\"",
-    "lineNumber": 53,
+    "lineNumber": 50,
     "type": {
       "nullable": null,
       "types": [
@@ -911,7 +912,7 @@
     "longname": "src/client.js~EPigeonClient#on",
     "access": "public",
     "description": "Define event callback (Emitter)",
-    "lineNumber": 61,
+    "lineNumber": 58,
     "params": [
       {
         "nullable": null,
@@ -931,7 +932,7 @@
         "spread": false,
         "optional": false,
         "name": "callback",
-        "description": "You know what to do no ?"
+        "description": "YKWTD :)"
       }
     ],
     "return": null
@@ -947,7 +948,7 @@
     "longname": "src/client.js~EPigeonClient#off",
     "access": "public",
     "description": "Disable an event",
-    "lineNumber": 69,
+    "lineNumber": 66,
     "params": [
       {
         "nullable": null,
@@ -967,7 +968,7 @@
         "spread": false,
         "optional": false,
         "name": "callback",
-        "description": "the callback you want to disable"
+        "description": "clabback linked that u want to remove"
       }
     ],
     "return": null
@@ -983,7 +984,7 @@
     "longname": "src/client.js~EPigeonClient#_initEvents",
     "access": "private",
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 69,
     "undocument": true,
     "params": [],
     "return": null
@@ -999,7 +1000,7 @@
     "longname": "src/client.js~EPigeonClient#_onConnect",
     "access": "private",
     "description": "Handler for the on connect action.\nYou can add an handler with client.on('connected',...)",
-    "lineNumber": 81,
+    "lineNumber": 78,
     "params": [],
     "return": null
   },
@@ -1014,7 +1015,7 @@
     "longname": "src/client.js~EPigeonClient#_onDisconnect",
     "access": "private",
     "description": "Handler for the on disconnect action.\nYou can add an handler with client.on('disconnected',...)",
-    "lineNumber": 91,
+    "lineNumber": 88,
     "params": [],
     "return": null
   },
@@ -1029,7 +1030,7 @@
     "longname": "src/client.js~EPigeonClient#_onData",
     "access": "private",
     "description": null,
-    "lineNumber": 101,
+    "lineNumber": 98,
     "undocument": true,
     "params": [
       {
@@ -1052,7 +1053,7 @@
     "longname": "src/client.js~EPigeonClient#_onAuth",
     "access": "private",
     "description": "Handler for the on auth action.\nYou can add an handler with client.on('authenticated',...)",
-    "lineNumber": 119,
+    "lineNumber": 116,
     "params": [
       {
         "name": "isKnow",
@@ -1072,7 +1073,7 @@
     "longname": "src/client.js~EPigeonClient#_hasConnectedOnce",
     "access": "private",
     "description": null,
-    "lineNumber": 124,
+    "lineNumber": 121,
     "undocument": true,
     "type": {
       "types": [
@@ -1091,7 +1092,7 @@
     "longname": "src/client.js~EPigeonClient#_resetIndexes",
     "access": "private",
     "description": "reset all indexes and lists for the client storage",
-    "lineNumber": 133,
+    "lineNumber": 130,
     "params": [],
     "return": null
   },
@@ -1106,7 +1107,7 @@
     "longname": "src/client.js~EPigeonClient#_authMe",
     "access": "private",
     "description": null,
-    "lineNumber": 139,
+    "lineNumber": 136,
     "undocument": true,
     "params": [],
     "return": null
@@ -1122,7 +1123,7 @@
     "longname": "src/client.js~EPigeonClient#_onClientsList",
     "access": "private",
     "description": null,
-    "lineNumber": 146,
+    "lineNumber": 143,
     "undocument": true,
     "params": [
       {
@@ -1145,7 +1146,7 @@
     "longname": "src/client.js~EPigeonClient#_onSessionUpdate",
     "access": "private",
     "description": "Handler for the on sessionUpdate action.\nYou can add an handler with client.on('session-update',({uuid,session})=>...)",
-    "lineNumber": 154,
+    "lineNumber": 151,
     "params": [
       {
         "name": "payload",
@@ -1167,7 +1168,7 @@
     "longname": "src/client.js~EPigeonClient#_onMessageNew",
     "access": "private",
     "description": "Handler for the on message action.\nYou can add an handler with client.on('message',message=>...)",
-    "lineNumber": 165,
+    "lineNumber": 162,
     "params": [
       {
         "name": "message",
@@ -1189,7 +1190,7 @@
     "longname": "src/client.js~EPigeonClient#_onMessageRetry",
     "access": "private",
     "description": null,
-    "lineNumber": 183,
+    "lineNumber": 180,
     "undocument": true,
     "params": [
       {
@@ -1212,7 +1213,7 @@
     "longname": "src/client.js~EPigeonClient#_onMessageConfirm",
     "access": "private",
     "description": null,
-    "lineNumber": 193,
+    "lineNumber": 190,
     "undocument": true,
     "params": [
       {
@@ -1235,7 +1236,7 @@
     "longname": "src/client.js~EPigeonClient#_onClientConnect",
     "access": "private",
     "description": null,
-    "lineNumber": 201,
+    "lineNumber": 198,
     "undocument": true,
     "params": [
       {
@@ -1258,7 +1259,7 @@
     "longname": "src/client.js~EPigeonClient#_onClientDisconnect",
     "access": "private",
     "description": null,
-    "lineNumber": 209,
+    "lineNumber": 206,
     "undocument": true,
     "params": [
       {
@@ -1281,7 +1282,7 @@
     "longname": "src/client.js~EPigeonClient#_confirmMessage",
     "access": "private",
     "description": null,
-    "lineNumber": 217,
+    "lineNumber": 214,
     "undocument": true,
     "params": [
       {
@@ -1304,7 +1305,7 @@
     "longname": "src/client.js~EPigeonClient#_askClientsList",
     "access": "private",
     "description": null,
-    "lineNumber": 224,
+    "lineNumber": 221,
     "undocument": true,
     "params": [],
     "return": null
@@ -1320,7 +1321,7 @@
     "longname": "src/client.js~EPigeonClient#_sendMessage",
     "access": "private",
     "description": null,
-    "lineNumber": 232,
+    "lineNumber": 229,
     "undocument": true,
     "params": [
       {
@@ -1343,7 +1344,7 @@
     "longname": "src/client.js~EPigeonClient#_clearResendAction",
     "access": "private",
     "description": null,
-    "lineNumber": 240,
+    "lineNumber": 237,
     "undocument": true,
     "params": [
       {
@@ -1366,7 +1367,7 @@
     "longname": "src/client.js~EPigeonClient#_sendMessageWithRetry",
     "access": "private",
     "description": null,
-    "lineNumber": 246,
+    "lineNumber": 243,
     "undocument": true,
     "params": [
       {
@@ -1389,7 +1390,7 @@
     "longname": "src/client.js~EPigeonClient#sendMessage",
     "access": "public",
     "description": "Send a message to another client",
-    "lineNumber": 259,
+    "lineNumber": 256,
     "params": [
       {
         "nullable": null,
@@ -1426,7 +1427,7 @@
     "longname": "src/client.js~EPigeonClient#updateSession",
     "access": "public",
     "description": "Update your session object and send it to the others connected client",
-    "lineNumber": 274,
+    "lineNumber": 271,
     "params": [
       {
         "nullable": null,
@@ -1452,7 +1453,7 @@
     "longname": "src/client.js~EPigeonClient#connect",
     "access": "public",
     "description": "try to connect to the server, try to the infinite",
-    "lineNumber": 291,
+    "lineNumber": 288,
     "params": [
       {
         "nullable": null,
@@ -1488,7 +1489,7 @@
     "longname": "src/client.js~EPigeonClient#disconnect",
     "access": "public",
     "description": "disconnect the client",
-    "lineNumber": 298,
+    "lineNumber": 295,
     "params": [],
     "return": null
   },
@@ -1496,7 +1497,7 @@
     "__docId__": 95,
     "kind": "file",
     "name": "src/clientStorage.js",
-    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nclass ClientStorage {\r\n  constructor() {\r\n    /**\r\n     * Unique Id of the client\r\n     * @type {string}\r\n     */\r\n    this.uuid = uuidv4()\r\n    /**\r\n     * Data of the client\r\n     * @type {Object}\r\n     */\r\n    this.session = {}\r\n    /**\r\n     * Socket used to send data\r\n     * @type {Socket|any}\r\n     */\r\n    this.socket = null\r\n    /**\r\n     * Last id that was sent by the client\r\n     * @type {Int}\r\n     */\r\n    this._lastSendId = 0\r\n    /**\r\n     * Last id that was emit to the client\r\n     * @type {Int}\r\n     */\r\n    this._lastEmitId = 0\r\n    /**\r\n     * List of messages that are sent but not confirmed\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._sentList = []\r\n    /**\r\n     * List of message that are received but that are not in the correct order (waiting for a previous message that is not already recieved)\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._waitList = []\r\n  }\r\n  /**\r\n   * Obtain the state of the client\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this.socket === null ? 'disconnected' : 'connected'\r\n  }\r\n}\r\n\r\nmodule.exports = ClientStorage",
+    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nexport default class ClientStorage {\r\n  constructor() {\r\n    /**\r\n     * Unique Id of the client\r\n     * @type {string}\r\n     */\r\n    this.uuid = uuidv4()\r\n    /**\r\n     * Data of the client\r\n     * @type {Object}\r\n     */\r\n    this.session = {}\r\n    /**\r\n     * Socket used to send data\r\n     * @type {Socket|any}\r\n     */\r\n    this.socket = null\r\n    /**\r\n     * Last id that was sent by the client\r\n     * @type {Int}\r\n     */\r\n    this._lastSendId = 0\r\n    /**\r\n     * Last id that was emit to the client\r\n     * @type {Int}\r\n     */\r\n    this._lastEmitId = 0\r\n    /**\r\n     * List of messages that are sent but not confirmed\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._sentList = []\r\n    /**\r\n     * List of message that are received but that are not in the correct order (waiting for a previous message that is not already recieved)\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._waitList = []\r\n  }\r\n  /**\r\n   * Obtain the state of the client\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this.socket === null ? 'disconnected' : 'connected'\r\n  }\r\n}\r\n\r\nmodule.exports = ClientStorage",
     "static": true,
     "longname": "C:/Users/eso/gh/e-pigeon/src/clientStorage.js",
     "access": "public",
@@ -1532,14 +1533,13 @@
     "static": true,
     "longname": "src/clientStorage.js~ClientStorage",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@lug/e-pigeon/src/clientStorage.js",
-    "importStyle": null,
+    "importStyle": "ClientStorage",
     "description": null,
     "lineNumber": 3,
     "undocument": true,
-    "interface": false,
-    "ignore": true
+    "interface": false
   },
   {
     "__docId__": 98,
@@ -1714,7 +1714,7 @@
     "__docId__": 107,
     "kind": "file",
     "name": "src/messagePrototype.js",
-    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nclass MessagePrototype {\r\n  constructor() {\r\n    /**\r\n     * Uuid of who sent the message\r\n     * @type {string}\r\n     */\r\n    this.from = ''\r\n    /**\r\n     * string : uuid of the client || object : key:value that correspond to the session of the client\r\n     * @type {string|object} \r\n     */\r\n    this.to = ''\r\n    /**\r\n     * The id of the message that is incrmented every new message\r\n     * @type {Int}\r\n     */\r\n    this.id = 0\r\n    /**\r\n     * Unique id of the message\r\n     * @type {string} \r\n     */\r\n    this.uid = uuidv4()\r\n    /**\r\n     * Content of the message\r\n     * @type {any} \r\n     */\r\n    this.payload = null\r\n  }\r\n}\r\n\r\nmodule.exports = MessagePrototype",
+    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nexport default class MessagePrototype {\r\n  constructor() {\r\n    /**\r\n     * Uuid of who sent the message\r\n     * @type {string}\r\n     */\r\n    this.from = ''\r\n    /**\r\n     * string : uuid of the client || object : key:value that correspond to the session of the client\r\n     * @type {string|object} \r\n     */\r\n    this.to = ''\r\n    /**\r\n     * The id of the message that is incrmented every new message\r\n     * @type {Int}\r\n     */\r\n    this.id = 0\r\n    /**\r\n     * Unique id of the message\r\n     * @type {string} \r\n     */\r\n    this.uid = uuidv4()\r\n    /**\r\n     * Content of the message\r\n     * @type {any} \r\n     */\r\n    this.payload = null\r\n  }\r\n}\r\n\r\nmodule.exports = MessagePrototype",
     "static": true,
     "longname": "C:/Users/eso/gh/e-pigeon/src/messagePrototype.js",
     "access": "public",
@@ -1750,14 +1750,13 @@
     "static": true,
     "longname": "src/messagePrototype.js~MessagePrototype",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@lug/e-pigeon/src/messagePrototype.js",
-    "importStyle": null,
+    "importStyle": "MessagePrototype",
     "description": null,
     "lineNumber": 3,
     "undocument": true,
-    "interface": false,
-    "ignore": true
+    "interface": false
   },
   {
     "__docId__": 110,

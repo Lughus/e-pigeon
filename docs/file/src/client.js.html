@@ -30,6 +30,8 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~EPigeonClient.html">EPigeonClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html">EPigeonServer</a></span></span></li>
 </ul>
 </div>
@@ -47,10 +49,7 @@ const Events = require(&apos;events&apos;)
 
 const dbg = require(&apos;debug&apos;)(&apos;epigeon:client&apos;)
 
-/**
- * Client api for communcation
- */
-class EPigeonClient {
+export default class EPigeonClient {
   constructor() {
     /**
      * Interface that is used to send message
@@ -94,7 +93,7 @@ class EPigeonClient {
   /**
    * Define event callback (Emitter)
    * @param {string} event  the name of the event
-   * @param {function} callback You know what to do no ?
+   * @param {function} callback YKWTD :)
    */
   on(event, callback) {
     this._ev.on(event, callback)
@@ -102,7 +101,7 @@ class EPigeonClient {
   /**
    * Disable an event
    * @param {string} event the name of the event
-   * @param {function} callback the callback you want to disable
+   * @param {function} callback clabback linked that u want to remove
    */
   off(event, callback) {
     this._ev.removeListener(event, callback)
@@ -338,7 +337,7 @@ class EPigeonClient {
     this._net.disconnect()
   }
 }
-export default EPigeonClient
+
 module.exports = EPigeonClient</code></pre>
 
 </div>
