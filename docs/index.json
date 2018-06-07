@@ -1,0 +1,2764 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/client.js",
+    "content": "const {\r\n  NetClientProxyNodeIpc\r\n} = require('@lug/netproxy-node-ipc')\r\nconst NetClientProxy = NetClientProxyNodeIpc\r\nconst MessagePrototype = require('./messagePrototype')\r\nconst ClientStorage = require('./clientStorage')\r\n\r\nconst Events = require('events')\r\n\r\nconst dbg = require('debug')('epigeon:client')\r\n\r\n/**\r\n * Client api for communcation\r\n */\r\nclass EPigeonClient {\r\n  constructor() {\r\n    /**\r\n     * Interface that is used to send message\r\n     * @type {NetClientProxy}\r\n     */\r\n    this._net = new NetClientProxy\r\n    this._me = new ClientStorage\r\n    this._clients = []\r\n    this._state = 'disconnected'\r\n    this._ev = new Events\r\n    this._initEvents()\r\n  }\r\n  /**\r\n   * clients that has been connected to the server {uuid, session}\r\n   * @type {objcet[]}\r\n   */\r\n  get clients() {\r\n    return this._clients\r\n  }\r\n  /**\r\n   * uuid of this client\r\n   * @type {string}\r\n   */\r\n  get uuid() {\r\n    return this._me.uuid\r\n  }\r\n  /**\r\n   * Session of this client\r\n   * @type {object}\r\n   */\r\n  get session() {\r\n    return this._me.session\r\n  }\r\n  /**\r\n   * State of the client; can be \"connected\" or \"disconnected\"\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this._state\r\n  }\r\n  /**\r\n   * Define event callback (Emitter)\r\n   * @param {string} event  the name of the event\r\n   * @param {function} callback You know what to do no ?\r\n   */\r\n  on(event, callback) {\r\n    this._ev.on(event, callback)\r\n  }\r\n  /**\r\n   * Disable an event\r\n   * @param {string} event the name of the event\r\n   * @param {function} callback the callback you want to disable\r\n   */\r\n  off(event, callback) {\r\n    this._ev.removeListener(event, callback)\r\n  }\r\n  _initEvents() {\r\n    this._net.ev.on('connected', this._onConnect.bind(this))\r\n    this._net.ev.on('disconnect', this._onDisconnect.bind(this))\r\n    this._net.ev.on('data', this._onData.bind(this))\r\n  }\r\n  /**\r\n   * Handler for the on connect action.\r\n   * You can add an handler with client.on('connected',...)\r\n   */\r\n  _onConnect() {\r\n    this._state = 'connected'\r\n    dbg('connected')\r\n    this._ev.emit('connected')\r\n    this._authMe()\r\n  }\r\n  /**\r\n   * Handler for the on disconnect action.\r\n   * You can add an handler with client.on('disconnected',...)\r\n   */\r\n  _onDisconnect() {\r\n    this._state = 'disconnected'\r\n    this._ev.emit('disconnected')\r\n    this._me._sentList.forEach(message => {\r\n      if (message.resendAction !== undefined) {\r\n        clearTimeout(message.resendAction)\r\n        delete message.resendAction\r\n      }\r\n    })\r\n  }\r\n  _onData(data) {\r\n    data = JSON.parse(data)\r\n    let actions = {\r\n      'auth': this._onAuth.bind(this),\r\n      'clients.list': this._onClientsList.bind(this),\r\n      'session.update': this._onSessionUpdate.bind(this),\r\n      'message.new': this._onMessageNew.bind(this),\r\n      'message.retry': this._onMessageRetry.bind(this),\r\n      'message.confirm': this._onMessageConfirm.bind(this),\r\n      'client.connect': this._onClientConnect.bind(this),\r\n      'client.disconnect': this._onClientDisconnect.bind(this),\r\n    }\r\n    actions[data.action](data.payload)\r\n  }\r\n  /**\r\n   * Handler for the on auth action.\r\n   * You can add an handler with client.on('authenticated',...)\r\n   */\r\n  _onAuth(isKnow) {\r\n    dbg('authenticated')\r\n    this.updateSession(this.session)\r\n    if (isKnow === false && this._hasConnectedOnce === true) {\r\n      this._resetIndexes()\r\n    } else this._hasConnectedOnce = true\r\n    this._ev.emit('authenticated')\r\n    this._me._sentList.forEach(message => {\r\n      this._sendMessageWithRetry(message)\r\n    })\r\n  }\r\n  /**\r\n   * reset all indexes and lists for the client storage\r\n   */\r\n  _resetIndexes() {\r\n    this._me._lastEmitId = 0\r\n    this._me._lastSendId = 0\r\n    this._me._sentList = []\r\n    this._me._waitList = []\r\n  }\r\n  _authMe() {\r\n    dbg('auth me')\r\n    this._net.send(JSON.stringify({\r\n      action: 'auth',\r\n      payload: this._me.uuid\r\n    }))\r\n  }\r\n  _onClientsList(list) {\r\n    dbg('recieved client list :', list)\r\n    this._clients = list\r\n  }\r\n  /**\r\n   * Handler for the on sessionUpdate action.\r\n   * You can add an handler with client.on('session-update',({uuid,session})=>...)\r\n   */\r\n  _onSessionUpdate(payload) {\r\n    let client = this._clients.find(c => c.uuid === payload.uuid)\r\n    dbg('recieved session for client :', client, payload)\r\n    if (client === undefined) this._clients.push(payload)\r\n    else client.session = payload.session\r\n    this._ev.emit('session.update', payload)\r\n  }\r\n  /**\r\n   * Handler for the on message action.\r\n   * You can add an handler with client.on('message',message=>...)\r\n   */\r\n  _onMessageNew(message) {\r\n    const client = this._me\r\n    dbg('message recieved :', message)\r\n    this._confirmMessage(message)\r\n    client._waitList.push(message)\r\n\r\n    // send all in wait list\r\n    for (\r\n      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1) // maybe an error here\r\n    ) {\r\n      client._waitList.splice(\r\n        client._waitList.findIndex(m => m.uid === mess.uid),\r\n        1\r\n      )\r\n      client._lastEmitId += 1\r\n      this._ev.emit('message', message)\r\n    }\r\n  }\r\n  _onMessageRetry(id) {\r\n    const message = this._me._sentList.find(m => m.id === id)\r\n    dbg('message retry asked :', message)\r\n    if (message !== undefined) this._sendMessage(message)\r\n    else\r\n      console.error(\r\n        Error('Message retry asked but cannot find message'),\r\n        uid\r\n      )\r\n  }\r\n  _onMessageConfirm(uid) {\r\n    const index = this._me._sentList.findIndex(m => m.uid === uid)\r\n    if (index !== -1) {\r\n      const message = this._me._sentList.splice(index, 1)[0]\r\n      this._clearResendAction(message)\r\n      dbg('message confirmed', message)\r\n    }\r\n  }\r\n  _onClientConnect(uuid) {\r\n    dbg('client connected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'connected'\r\n      this._ev.emit('client.connect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _onClientDisconnect(uuid) {\r\n    dbg('client disconnected:', uuid)\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    if (client !== undefined) {\r\n      client.state = 'disconnected'\r\n      this._ev.emit('client.disconnect', client)\r\n    } else this._askClientsList()\r\n  }\r\n  _confirmMessage(message) {\r\n    dbg('confirm message :', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.confirm',\r\n      payload: message.uid\r\n    }))\r\n  }\r\n  _askClientsList() {\r\n    dbg('ask clients list')\r\n    if (this.state !== 'disconnected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'clients.list',\r\n        payload: ''\r\n      }))\r\n  }\r\n  _sendMessage(message) {\r\n    this._clearResendAction(message)\r\n    dbg('send new message:', message)\r\n    this._net.send(JSON.stringify({\r\n      action: 'message.new',\r\n      payload: message\r\n    }))\r\n  }\r\n  _clearResendAction(message) {\r\n    if (message.resendAction !== undefined) {\r\n      clearTimeout(message.resendAction)\r\n      delete message.resendAction\r\n    }\r\n  }\r\n  async _sendMessageWithRetry(message) {\r\n    this._sendMessage(message)\r\n    message.resendAction = setTimeout(() => {\r\n      this._sendMessageWithRetry(message)\r\n    }, 2000)\r\n  }\r\n  /**\r\n   * Send a message to another client\r\n   * @param {string|object} to string : uuid of the destination client ||\r\n   * object : {key:value} that correspond to the session of the client \r\n   * ; can correspond to many like a group\r\n   * @param {any} messageCnt Content of the message \r\n   */\r\n  sendMessage(to, messageCnt) {\r\n    dbg('send message to:', to, messageCnt)\r\n    const message = new MessagePrototype\r\n    message.from = this._me.uuid\r\n    message.to = to\r\n    message.id = this._me._lastSendId++;\r\n    message.payload = messageCnt\r\n    this._me._sentList.push(message)\r\n    if (this.state === 'connected')\r\n      this._sendMessageWithRetry(message)\r\n  }\r\n  /**\r\n   * Update your session object and send it to the others connected client\r\n   * @param {object} object some key:value that you need to change in the session\r\n   */\r\n  updateSession(object = {}) {\r\n    Object.assign(this._me.session, object)\r\n    for (let k in this._me.session)\r\n      if (this._me.session[k] === undefined)\r\n        delete this._me.session[k]\r\n    dbg('update session')\r\n    if (this.state === 'connected')\r\n      this._net.send(JSON.stringify({\r\n        action: 'session.update',\r\n        payload: this._me.session\r\n      }))\r\n  }\r\n  /**\r\n   * try to connect to the server, try to the infinite\r\n   * @param {string} ip the ip or dns of the server\r\n   * @param {Int} port the port of the server \r\n   */\r\n  connect(ip, port) {\r\n    dbg('connect:', ip, port)\r\n    this._net.connect(ip, port)\r\n  }\r\n  /**\r\n   * disconnect the client\r\n   */\r\n  disconnect() {\r\n    dbg('disconnect')\r\n    this._net.disconnect()\r\n  }\r\n}\r\nexport default EPigeonClient\r\nmodule.exports = EPigeonClient",
+    "static": true,
+    "longname": "C:/Users/eso/gh/e-pigeon/src/client.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "NetClientProxyNodeIpc",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~NetClientProxyNodeIpc",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "NetClientProxy",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~NetClientProxy",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "MessagePrototype",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~MessagePrototype",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "variable",
+    "name": "ClientStorage",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~ClientStorage",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "Events",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~Events",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "variable",
+    "name": "dbg",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~dbg",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "class",
+    "name": "EPigeonClient",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~EPigeonClient",
+    "access": "public",
+    "export": true,
+    "importPath": "@lug/e-pigeon/src/client.js",
+    "importStyle": "EPigeonClient",
+    "description": "Client api for communcation",
+    "lineNumber": 15,
+    "interface": false
+  },
+  {
+    "__docId__": 56,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "_net",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_net",
+    "access": "private",
+    "description": "Interface that is used to send message",
+    "lineNumber": 21,
+    "type": {
+      "nullable": null,
+      "types": [
+        "NetClientProxy"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "_me",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_me",
+    "access": "private",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "_clients",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_clients",
+    "access": "private",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "_state",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_state",
+    "access": "private",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "member",
+    "name": "_ev",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_ev",
+    "access": "private",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "get",
+    "name": "clients",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#clients",
+    "access": "public",
+    "description": "clients that has been connected to the server {uuid, session}",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "objcet[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "get",
+    "name": "uuid",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#uuid",
+    "access": "public",
+    "description": "uuid of this client",
+    "lineNumber": 39,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "get",
+    "name": "session",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#session",
+    "access": "public",
+    "description": "Session of this client",
+    "lineNumber": 46,
+    "type": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "get",
+    "name": "state",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#state",
+    "access": "public",
+    "description": "State of the client; can be \"connected\" or \"disconnected\"",
+    "lineNumber": 53,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "name": "on",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#on",
+    "access": "public",
+    "description": "Define event callback (Emitter)",
+    "lineNumber": 61,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "event",
+        "description": "the name of the event"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "You know what to do no ?"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "off",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#off",
+    "access": "public",
+    "description": "Disable an event",
+    "lineNumber": 69,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "event",
+        "description": "the name of the event"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the callback you want to disable"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "name": "_initEvents",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_initEvents",
+    "access": "private",
+    "description": null,
+    "lineNumber": 72,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "_onConnect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onConnect",
+    "access": "private",
+    "description": "Handler for the on connect action.\nYou can add an handler with client.on('connected',...)",
+    "lineNumber": 81,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "name": "_onDisconnect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onDisconnect",
+    "access": "private",
+    "description": "Handler for the on disconnect action.\nYou can add an handler with client.on('disconnected',...)",
+    "lineNumber": 91,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "name": "_onData",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onData",
+    "access": "private",
+    "description": null,
+    "lineNumber": 101,
+    "undocument": true,
+    "params": [
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "name": "_onAuth",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onAuth",
+    "access": "private",
+    "description": "Handler for the on auth action.\nYou can add an handler with client.on('authenticated',...)",
+    "lineNumber": 119,
+    "params": [
+      {
+        "name": "isKnow",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 75,
+    "kind": "member",
+    "name": "_hasConnectedOnce",
+    "memberof": "src/client.js~EPigeonClient",
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_hasConnectedOnce",
+    "access": "private",
+    "description": null,
+    "lineNumber": 124,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "_resetIndexes",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_resetIndexes",
+    "access": "private",
+    "description": "reset all indexes and lists for the client storage",
+    "lineNumber": 133,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 77,
+    "kind": "method",
+    "name": "_authMe",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_authMe",
+    "access": "private",
+    "description": null,
+    "lineNumber": 139,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 78,
+    "kind": "method",
+    "name": "_onClientsList",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onClientsList",
+    "access": "private",
+    "description": null,
+    "lineNumber": 146,
+    "undocument": true,
+    "params": [
+      {
+        "name": "list",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "_onSessionUpdate",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onSessionUpdate",
+    "access": "private",
+    "description": "Handler for the on sessionUpdate action.\nYou can add an handler with client.on('session-update',({uuid,session})=>...)",
+    "lineNumber": 154,
+    "params": [
+      {
+        "name": "payload",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "_onMessageNew",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onMessageNew",
+    "access": "private",
+    "description": "Handler for the on message action.\nYou can add an handler with client.on('message',message=>...)",
+    "lineNumber": 165,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "_onMessageRetry",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onMessageRetry",
+    "access": "private",
+    "description": null,
+    "lineNumber": 183,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "_onMessageConfirm",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onMessageConfirm",
+    "access": "private",
+    "description": null,
+    "lineNumber": 193,
+    "undocument": true,
+    "params": [
+      {
+        "name": "uid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "name": "_onClientConnect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onClientConnect",
+    "access": "private",
+    "description": null,
+    "lineNumber": 201,
+    "undocument": true,
+    "params": [
+      {
+        "name": "uuid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "_onClientDisconnect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_onClientDisconnect",
+    "access": "private",
+    "description": null,
+    "lineNumber": 209,
+    "undocument": true,
+    "params": [
+      {
+        "name": "uuid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "_confirmMessage",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_confirmMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 217,
+    "undocument": true,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "_askClientsList",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_askClientsList",
+    "access": "private",
+    "description": null,
+    "lineNumber": 224,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "_sendMessage",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_sendMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 232,
+    "undocument": true,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "_clearResendAction",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_clearResendAction",
+    "access": "private",
+    "description": null,
+    "lineNumber": 240,
+    "undocument": true,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "_sendMessageWithRetry",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#_sendMessageWithRetry",
+    "access": "private",
+    "description": null,
+    "lineNumber": 246,
+    "undocument": true,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 91,
+    "kind": "method",
+    "name": "sendMessage",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#sendMessage",
+    "access": "public",
+    "description": "Send a message to another client",
+    "lineNumber": 259,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string",
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "to",
+        "description": "string : uuid of the destination client ||\nobject : {key:value} that correspond to the session of the client \n; can correspond to many like a group"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "any"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "messageCnt",
+        "description": "Content of the message"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 92,
+    "kind": "method",
+    "name": "updateSession",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#updateSession",
+    "access": "public",
+    "description": "Update your session object and send it to the others connected client",
+    "lineNumber": 274,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "object",
+        "description": "some key:value that you need to change in the session"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 93,
+    "kind": "method",
+    "name": "connect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#connect",
+    "access": "public",
+    "description": "try to connect to the server, try to the infinite",
+    "lineNumber": 291,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ip",
+        "description": "the ip or dns of the server"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Int"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "port",
+        "description": "the port of the server"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "disconnect",
+    "memberof": "src/client.js~EPigeonClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~EPigeonClient#disconnect",
+    "access": "public",
+    "description": "disconnect the client",
+    "lineNumber": 298,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 95,
+    "kind": "file",
+    "name": "src/clientStorage.js",
+    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nclass ClientStorage {\r\n  constructor() {\r\n    /**\r\n     * Unique Id of the client\r\n     * @type {string}\r\n     */\r\n    this.uuid = uuidv4()\r\n    /**\r\n     * Data of the client\r\n     * @type {Object}\r\n     */\r\n    this.session = {}\r\n    /**\r\n     * Socket used to send data\r\n     * @type {Socket|any}\r\n     */\r\n    this.socket = null\r\n    /**\r\n     * Last id that was sent by the client\r\n     * @type {Int}\r\n     */\r\n    this._lastSendId = 0\r\n    /**\r\n     * Last id that was emit to the client\r\n     * @type {Int}\r\n     */\r\n    this._lastEmitId = 0\r\n    /**\r\n     * List of messages that are sent but not confirmed\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._sentList = []\r\n    /**\r\n     * List of message that are received but that are not in the correct order (waiting for a previous message that is not already recieved)\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._waitList = []\r\n  }\r\n  /**\r\n   * Obtain the state of the client\r\n   * @type {string}\r\n   */\r\n  get state() {\r\n    return this.socket === null ? 'disconnected' : 'connected'\r\n  }\r\n}\r\n\r\nmodule.exports = ClientStorage",
+    "static": true,
+    "longname": "C:/Users/eso/gh/e-pigeon/src/clientStorage.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 96,
+    "kind": "variable",
+    "name": "uuidv4",
+    "memberof": "src/clientStorage.js",
+    "static": true,
+    "longname": "src/clientStorage.js~uuidv4",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/clientStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "class",
+    "name": "ClientStorage",
+    "memberof": "src/clientStorage.js",
+    "static": true,
+    "longname": "src/clientStorage.js~ClientStorage",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/clientStorage.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "member",
+    "name": "uuid",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#uuid",
+    "access": "public",
+    "description": "Unique Id of the client",
+    "lineNumber": 9,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "member",
+    "name": "session",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#session",
+    "access": "public",
+    "description": "Data of the client",
+    "lineNumber": 14,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "member",
+    "name": "socket",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#socket",
+    "access": "public",
+    "description": "Socket used to send data",
+    "lineNumber": 19,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Socket",
+        "any"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "member",
+    "name": "_lastSendId",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#_lastSendId",
+    "access": "private",
+    "description": "Last id that was sent by the client",
+    "lineNumber": 24,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Int"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 103,
+    "kind": "member",
+    "name": "_lastEmitId",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#_lastEmitId",
+    "access": "private",
+    "description": "Last id that was emit to the client",
+    "lineNumber": 29,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Int"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 104,
+    "kind": "member",
+    "name": "_sentList",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#_sentList",
+    "access": "private",
+    "description": "List of messages that are sent but not confirmed",
+    "lineNumber": 34,
+    "type": {
+      "nullable": null,
+      "types": [
+        "MessagePrototype[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 105,
+    "kind": "member",
+    "name": "_waitList",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#_waitList",
+    "access": "private",
+    "description": "List of message that are received but that are not in the correct order (waiting for a previous message that is not already recieved)",
+    "lineNumber": 39,
+    "type": {
+      "nullable": null,
+      "types": [
+        "MessagePrototype[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "get",
+    "name": "state",
+    "memberof": "src/clientStorage.js~ClientStorage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/clientStorage.js~ClientStorage#state",
+    "access": "public",
+    "description": "Obtain the state of the client",
+    "lineNumber": 45,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 107,
+    "kind": "file",
+    "name": "src/messagePrototype.js",
+    "content": "const uuidv4 = require('uuid/v4')\r\n\r\nclass MessagePrototype {\r\n  constructor() {\r\n    /**\r\n     * Uuid of who sent the message\r\n     * @type {string}\r\n     */\r\n    this.from = ''\r\n    /**\r\n     * string : uuid of the client || object : key:value that correspond to the session of the client\r\n     * @type {string|object} \r\n     */\r\n    this.to = ''\r\n    /**\r\n     * The id of the message that is incrmented every new message\r\n     * @type {Int}\r\n     */\r\n    this.id = 0\r\n    /**\r\n     * Unique id of the message\r\n     * @type {string} \r\n     */\r\n    this.uid = uuidv4()\r\n    /**\r\n     * Content of the message\r\n     * @type {any} \r\n     */\r\n    this.payload = null\r\n  }\r\n}\r\n\r\nmodule.exports = MessagePrototype",
+    "static": true,
+    "longname": "C:/Users/eso/gh/e-pigeon/src/messagePrototype.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 108,
+    "kind": "variable",
+    "name": "uuidv4",
+    "memberof": "src/messagePrototype.js",
+    "static": true,
+    "longname": "src/messagePrototype.js~uuidv4",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/messagePrototype.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "class",
+    "name": "MessagePrototype",
+    "memberof": "src/messagePrototype.js",
+    "static": true,
+    "longname": "src/messagePrototype.js~MessagePrototype",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/messagePrototype.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "member",
+    "name": "from",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#from",
+    "access": "public",
+    "description": "Uuid of who sent the message",
+    "lineNumber": 9,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "member",
+    "name": "to",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#to",
+    "access": "public",
+    "description": "string : uuid of the client || object : key:value that correspond to the session of the client",
+    "lineNumber": 14,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string",
+        "object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "member",
+    "name": "id",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#id",
+    "access": "public",
+    "description": "The id of the message that is incrmented every new message",
+    "lineNumber": 19,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Int"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "member",
+    "name": "uid",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#uid",
+    "access": "public",
+    "description": "Unique id of the message",
+    "lineNumber": 24,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 115,
+    "kind": "member",
+    "name": "payload",
+    "memberof": "src/messagePrototype.js~MessagePrototype",
+    "static": false,
+    "longname": "src/messagePrototype.js~MessagePrototype#payload",
+    "access": "public",
+    "description": "Content of the message",
+    "lineNumber": 29,
+    "type": {
+      "nullable": null,
+      "types": [
+        "any"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "file",
+    "name": "src/server.js",
+    "content": "const {\r\n  NetServerProxyNodeIpc\r\n} = require('@lug/netproxy-node-ipc')\r\nconst NetServerProxy = NetServerProxyNodeIpc\r\nconst MessagePrototype = require('./messagePrototype')\r\nconst ClientStorage = require('./clientStorage')\r\n\r\nconst debug = require('debug')\r\nconst dbg = debug('epigeon:serve')\r\nconst dbgx = debug('epigeon:srv')\r\n\r\nexport default class EPigeonServer {\r\n  constructor() {\r\n    /**\r\n     * Interface that is used to send message\r\n     * @type {NetServerProxy}\r\n     */\r\n    this._net = new NetServerProxy()\r\n    /**\r\n     * Clients that was connected a least one time\r\n     * @type {ClientStorage[]}\r\n     */\r\n    this.clients = []\r\n    /**\r\n     * List of message that doesn't know the destination client and wait that it connect\r\n     * @type {MessagePrototype[]}\r\n     */\r\n    this._unknowList = []\r\n\r\n    this._initEvents()\r\n  }\r\n  _initEvents() {\r\n    this._net.ev.on('socket.data', this._onData.bind(this))\r\n    this._net.ev.on(\r\n      'socket.disconnect',\r\n      this._onSocketDisconnect.bind(this)\r\n    )\r\n    this._net.ev.on(\r\n      'socket.connect',\r\n      (socket) => {\r\n        dbg('socket connected : ', socket)\r\n      }\r\n    )\r\n  }\r\n  /**\r\n   * find a client from his socket\r\n   * @param {Socket|any} socket of the client\r\n   * @returns {ClientStorage?} the client wha as this socket\r\n   */\r\n  _findFromSocket(socket) {\r\n    if (socket === null) return\r\n    return this.clients.find(c => c.socket === socket)\r\n  }\r\n  /**\r\n   * Find the destinator(s) of the message\r\n   * @param {MessagePrototype} message the message that contanin the destinator\r\n   * @param {ClientStorage[]} clients the clients that we need to find in a destinator\r\n   * @returns {ClientStorage[]} clients that correspond to message.to\r\n   */\r\n  _findFromMessageTo(message, clients = this.clients) {\r\n    let dstClients = []\r\n    dbg('find client:', clients, message)\r\n    if (typeof message.to === 'string') {\r\n      let client = clients.find(c => c.uuid === message.to)\r\n      if (client !== undefined) dstClients.push(client)\r\n    } else if (typeof message.to === 'object') {\r\n      for (let client of clients)\r\n        for (let key in message.to) {\r\n          if (client.session[key] !== undefined &&\r\n            client.session[key] === message.to[key])\r\n            dstClients.push(client)\r\n        }\r\n    }\r\n    return dstClients\r\n  }\r\n  _onSocketDisconnect(socket) {\r\n    // find in the client list the socket and put his state to disconnected\r\n    const client = this._findFromSocket(socket)\r\n    dbg('client disconnected :', socket)\r\n    if (client !== undefined) {\r\n      client.socket = null\r\n      client._sentList.forEach(message => {\r\n        this._clearResendAction(message)\r\n      })\r\n    }\r\n    this._notifyClientsOfADisconnection(client)\r\n  }\r\n  _notifyClientsOfADisconnection(disconnectedClient) {\r\n    for (let client of this.clients) {\r\n      if (client.socket !== null) {\r\n        this._net.send(client.socket, JSON.stringify({\r\n          action: 'client.disconnect',\r\n          payload: disconnectedClient.uuid\r\n        }))\r\n      }\r\n    }\r\n  }\r\n  _notifyClientsOfAConnection(connectedClient) {\r\n    for (let client of this.clients) {\r\n      if (client.uuid !== connectedClient.uuid && client.socket !== null) {\r\n        this._net.send(client.socket, JSON.stringify({\r\n          action: 'client.connect',\r\n          payload: connectedClient.uuid\r\n        }))\r\n      }\r\n    }\r\n  }\r\n  _onData(socket, data) {\r\n    data = JSON.parse(data)\r\n    dbg('data recieved', data)\r\n    let actions = {\r\n      'auth': this._onAuth.bind(this),\r\n      'message.new': this._onMessageNew.bind(this),\r\n      'message.confirm': this._onMessageConfirm.bind(this),\r\n      'message.retry': this._onMessageRetry.bind(this),\r\n      'clients.list': this._onClientsList.bind(this),\r\n      'session.update': this._onSessionUpdate.bind(this),\r\n    }\r\n    actions[data.action](socket, data.payload)\r\n  }\r\n  _onAuth(socket, uuid) {\r\n    // find if a client have this uuid if true, set the socket else create new client\r\n    let client = this.clients.find(c => c.uuid === uuid)\r\n    let isKnow = true\r\n    if (client === undefined) {\r\n      client = new ClientStorage()\r\n      client.uuid = uuid\r\n      this.clients.push(client)\r\n      isKnow = false\r\n    }\r\n    dbg('client auth :', isKnow, uuid)\r\n    client.socket = socket\r\n    this._net.send(socket, JSON.stringify({\r\n      action: 'auth',\r\n      payload: isKnow\r\n    }))\r\n    this._sendClientsList(socket)\r\n    // send messages in the sendlist\r\n    client._sentList.forEach(message => {\r\n      this._sendMessageWithRetry(client.socket, message)\r\n    })\r\n    this._notifyClientsOfAConnection(client)\r\n    this._tryToSendUnknowDestinatoryMessage(client)\r\n  }\r\n  _tryToSendUnknowDestinatoryMessage(clients = this.clients) {\r\n    dbg('try to find destinator for :', clients, this._unknowList)\r\n    if (!Array.isArray(clients)) clients = [clients]\r\n    for (let messageIndex in this._unknowList) {\r\n      let message = this._unknowList[messageIndex]\r\n      let dstClients = this._findFromMessageTo(message, clients)\r\n      for (let client of dstClients)\r\n        if (client !== undefined) {\r\n          dbg('message found a destinator :', message, client)\r\n          let message_ = JSON.parse(JSON.stringify(message))\r\n          this._updateMessageId(client, message_)\r\n          client._sentList.push(message_)\r\n          if (client.socket !== undefined)\r\n            this._sendMessageWithRetry(client.socket, message_)\r\n        }\r\n      if (dstClients.length > 0)\r\n        this._unknowList.splice(messageIndex, 1)\r\n    }\r\n  }\r\n  _updateMessageId(client, message) {\r\n    message.fromId = message.id\r\n    message.id = client._lastSendId++\r\n  }\r\n  _onMessageNew(socket, message) {\r\n    /* on new message : many things\r\n     * - find client from\r\n     * - confirm message reception\r\n     * - check if message id is the next\r\n     *   - if not put in wait list\r\n     *   - if yes send the message to the event message recieved \r\n     *     for each that are in the right order and block when is not and remove from the list\r\n     */\r\n    const client = this._findFromSocket(socket)\r\n    dbg('message recieved from :', client, message)\r\n    dbgx('message recieved:', message)\r\n    this._confirmMessage(socket, message)\r\n    client._waitList.push(message)\r\n    // send all in wait list\r\n    for (\r\n      let mess = message; mess !== undefined; mess = client._waitList.find(m => m.id === client._lastEmitId + 1)\r\n    ) {\r\n      // find destination client\r\n      let toClients = this._findFromMessageTo(mess)\r\n      if (toClients.length === 0) {\r\n        // put message in unknown list\r\n        this._unknowList.push(mess)\r\n      } else {\r\n        // send message\r\n        for (let toClient of toClients) {\r\n          this._clearResendAction(mess)\r\n          let mess_ = JSON.parse(JSON.stringify(mess))\r\n          this._updateMessageId(toClient, mess_)\r\n          // thats something strange, if a message arrive at the same time that someone connect the message is duplicated\r\n          //  with that it cancel the new send\r\n          if(toClient._sentList.find(a=>a.uid === mess_.uid))\r\n            return dbg('message duplicate found on the sent list, so cancel the new send', mess_)\r\n          // END TEST\r\n          toClient._sentList.push(mess_)\r\n          if (toClient.socket !== null) {\r\n            this._sendMessageWithRetry(toClient.socket, mess_)\r\n          }\r\n        }\r\n      }\r\n      // rm from list\r\n      client._waitList.splice(\r\n        client._waitList.findIndex(m => m.uid === mess.uid),\r\n        1\r\n      )\r\n      client._lastEmitId += 1\r\n    }\r\n  }\r\n  _onMessageConfirm(socket, uid) {\r\n    // remove from sentlist message with the uid\r\n    const client = this._findFromSocket(socket)\r\n    if (client !== undefined) {\r\n      const index = client._sentList.findIndex(m => m.uid === uid)\r\n      if (index !== -1) {\r\n        let message = client._sentList.splice(index, 1)[0]\r\n        this._clearResendAction(message)\r\n        dbg('Confirmed message :', message)\r\n      } else\r\n        console.error(\r\n          Error('SRV:Message confirm recieved but cannot find message'),\r\n          client,\r\n          uid\r\n        )\r\n    } else\r\n      console.error(\r\n        Error('SRV:Message confirm recieved but cannot find client'),\r\n        socket,\r\n        uid\r\n      )\r\n  }\r\n  _onMessageRetry(socket, id) {\r\n    // resent the message with the id that is store in the sent list\r\n    const client = this._findFromSocket(socket)\r\n    dbg('asked to retry a message with id :', id)\r\n    if (client !== undefined) {\r\n      const message = client._sentList.find(m => m.id === id)\r\n      if (message !== undefined) this._sendMessage(socket, message)\r\n      else\r\n        console.error(\r\n          Error('SRV:Message retry asked but cannot find message'),\r\n          client,\r\n          uid\r\n        )\r\n    } else\r\n      console.error(\r\n        Error('SRV:Message retry asked but cannot find client'),\r\n        socket,\r\n        uid\r\n      )\r\n  }\r\n  _onClientsList(socket) {\r\n    dbg('asked for client list')\r\n    this._sendClientsList(socket)\r\n  }\r\n  _sendClientsList(socket) {\r\n    this._net.send(socket, JSON.stringify({\r\n      action: 'clients.list',\r\n      payload: this.clients.map(({\r\n        uuid,\r\n        state,\r\n        session\r\n      }) => ({\r\n        uuid,\r\n        state,\r\n        session\r\n      }))\r\n    }))\r\n  }\r\n  _clearResendAction(message) {\r\n    if (message.resendAction !== undefined) {\r\n      clearTimeout(message.resendAction)\r\n      delete message.resendAction\r\n    }\r\n  }\r\n  _sendMessage(socket, message) {\r\n    if (socket === null) return\r\n    this._clearResendAction(message)\r\n    this._net.send(socket, JSON.stringify({\r\n      action: 'message.new',\r\n      payload: message\r\n    }))\r\n  }\r\n  _sendMessageWithRetry(socket, message) {\r\n    dbg('send message with retry :', message)\r\n    this._sendMessage(socket, message)\r\n    message.resendAction = setTimeout(() => {\r\n      this._sendMessageWithRetry(socket, message)\r\n    }, 2000)\r\n  }\r\n  _confirmMessage(socket, message) {\r\n    dbg('confirm message', message)\r\n    this._clearResendAction(message)\r\n    this._net.send(socket, JSON.stringify({\r\n      action: 'message.confirm',\r\n      payload: message.uid\r\n    }))\r\n  }\r\n  _onSessionUpdate(socket, session) {\r\n    const client = this._findFromSocket(socket)\r\n    dbg('session update for:', client, session)\r\n    client.session = session\r\n    const data = JSON.stringify({\r\n      action: 'session.update',\r\n      payload: {\r\n        uuid: client.uuid,\r\n        connected: true,\r\n        session\r\n      }\r\n    })\r\n    this.clients.forEach(c => {\r\n      if (c.socket !== null) {\r\n        this._net.send(c.socket, data)\r\n      }\r\n    })\r\n    this._tryToSendUnknowDestinatoryMessage(client)\r\n  }\r\n  _retryMessage(socket, id) {\r\n    dbg('ask for retry :', id)\r\n    this._net.send(socket, JSON.stringify({\r\n      action: 'message.retry',\r\n      payload: id\r\n    }))\r\n  }\r\n  /**\r\n   * Serve on this port\r\n   * @param {int} port Number of the port \r\n   */\r\n  serve(port) {\r\n    dbg('serve at', port)\r\n    this._net.listen(port)\r\n  }\r\n  /**\r\n   * Stop the server\r\n   */\r\n  stop() {\r\n    dbg('stop')\r\n    this._net.stop()\r\n  }\r\n}\r\n\r\nmodule.exports = EPigeonServer",
+    "static": true,
+    "longname": "C:/Users/eso/gh/e-pigeon/src/server.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 117,
+    "kind": "variable",
+    "name": "NetServerProxyNodeIpc",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~NetServerProxyNodeIpc",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "variable",
+    "name": "NetServerProxy",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~NetServerProxy",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "variable",
+    "name": "MessagePrototype",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~MessagePrototype",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "variable",
+    "name": "ClientStorage",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~ClientStorage",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "variable",
+    "name": "debug",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~debug",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "variable",
+    "name": "dbg",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~dbg",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "variable",
+    "name": "dbgx",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~dbgx",
+    "access": "public",
+    "export": false,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "class",
+    "name": "EPigeonServer",
+    "memberof": "src/server.js",
+    "static": true,
+    "longname": "src/server.js~EPigeonServer",
+    "access": "public",
+    "export": true,
+    "importPath": "@lug/e-pigeon/src/server.js",
+    "importStyle": "EPigeonServer",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 125,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true
+  },
+  {
+    "__docId__": 126,
+    "kind": "member",
+    "name": "_net",
+    "memberof": "src/server.js~EPigeonServer",
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_net",
+    "access": "private",
+    "description": "Interface that is used to send message",
+    "lineNumber": 18,
+    "type": {
+      "nullable": null,
+      "types": [
+        "NetServerProxy"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 127,
+    "kind": "member",
+    "name": "clients",
+    "memberof": "src/server.js~EPigeonServer",
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#clients",
+    "access": "public",
+    "description": "Clients that was connected a least one time",
+    "lineNumber": 23,
+    "type": {
+      "nullable": null,
+      "types": [
+        "ClientStorage[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 128,
+    "kind": "member",
+    "name": "_unknowList",
+    "memberof": "src/server.js~EPigeonServer",
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_unknowList",
+    "access": "private",
+    "description": "List of message that doesn't know the destination client and wait that it connect",
+    "lineNumber": 28,
+    "type": {
+      "nullable": null,
+      "types": [
+        "MessagePrototype[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 129,
+    "kind": "method",
+    "name": "_initEvents",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_initEvents",
+    "access": "private",
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 130,
+    "kind": "method",
+    "name": "_findFromSocket",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_findFromSocket",
+    "access": "private",
+    "description": "find a client from his socket",
+    "lineNumber": 50,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{ClientStorage?} the client wha as this socket"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Socket",
+          "any"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "socket",
+        "description": "of the client"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ClientStorage?"
+      ],
+      "spread": false,
+      "description": "the client wha as this socket"
+    }
+  },
+  {
+    "__docId__": 131,
+    "kind": "method",
+    "name": "_findFromMessageTo",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_findFromMessageTo",
+    "access": "private",
+    "description": "Find the destinator(s) of the message",
+    "lineNumber": 60,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{ClientStorage[]} clients that correspond to message.to"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "MessagePrototype"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "message",
+        "description": "the message that contanin the destinator"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ClientStorage[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "clients",
+        "description": "the clients that we need to find in a destinator"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ClientStorage[]"
+      ],
+      "spread": false,
+      "description": "clients that correspond to message.to"
+    }
+  },
+  {
+    "__docId__": 132,
+    "kind": "method",
+    "name": "_onSocketDisconnect",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onSocketDisconnect",
+    "access": "private",
+    "description": null,
+    "lineNumber": 76,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 133,
+    "kind": "method",
+    "name": "_notifyClientsOfADisconnection",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_notifyClientsOfADisconnection",
+    "access": "private",
+    "description": null,
+    "lineNumber": 88,
+    "undocument": true,
+    "params": [
+      {
+        "name": "disconnectedClient",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 134,
+    "kind": "method",
+    "name": "_notifyClientsOfAConnection",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_notifyClientsOfAConnection",
+    "access": "private",
+    "description": null,
+    "lineNumber": 98,
+    "undocument": true,
+    "params": [
+      {
+        "name": "connectedClient",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 135,
+    "kind": "method",
+    "name": "_onData",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onData",
+    "access": "private",
+    "description": null,
+    "lineNumber": 108,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "data",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 136,
+    "kind": "method",
+    "name": "_onAuth",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onAuth",
+    "access": "private",
+    "description": null,
+    "lineNumber": 121,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "uuid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 137,
+    "kind": "method",
+    "name": "_tryToSendUnknowDestinatoryMessage",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_tryToSendUnknowDestinatoryMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 145,
+    "undocument": true,
+    "params": [
+      {
+        "name": "clients",
+        "optional": true,
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "_updateMessageId",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_updateMessageId",
+    "access": "private",
+    "description": null,
+    "lineNumber": 164,
+    "undocument": true,
+    "params": [
+      {
+        "name": "client",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 139,
+    "kind": "method",
+    "name": "_onMessageNew",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onMessageNew",
+    "access": "private",
+    "description": null,
+    "lineNumber": 168,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "method",
+    "name": "_onMessageConfirm",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onMessageConfirm",
+    "access": "private",
+    "description": null,
+    "lineNumber": 216,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "uid",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 141,
+    "kind": "method",
+    "name": "_onMessageRetry",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onMessageRetry",
+    "access": "private",
+    "description": null,
+    "lineNumber": 238,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "_onClientsList",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onClientsList",
+    "access": "private",
+    "description": null,
+    "lineNumber": 258,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 143,
+    "kind": "method",
+    "name": "_sendClientsList",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_sendClientsList",
+    "access": "private",
+    "description": null,
+    "lineNumber": 262,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 144,
+    "kind": "method",
+    "name": "_clearResendAction",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_clearResendAction",
+    "access": "private",
+    "description": null,
+    "lineNumber": 276,
+    "undocument": true,
+    "params": [
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 145,
+    "kind": "method",
+    "name": "_sendMessage",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_sendMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 282,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 146,
+    "kind": "method",
+    "name": "_sendMessageWithRetry",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_sendMessageWithRetry",
+    "access": "private",
+    "description": null,
+    "lineNumber": 290,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 147,
+    "kind": "method",
+    "name": "_confirmMessage",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_confirmMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 297,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 148,
+    "kind": "method",
+    "name": "_onSessionUpdate",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_onSessionUpdate",
+    "access": "private",
+    "description": null,
+    "lineNumber": 305,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "session",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 149,
+    "kind": "method",
+    "name": "_retryMessage",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#_retryMessage",
+    "access": "private",
+    "description": null,
+    "lineNumber": 324,
+    "undocument": true,
+    "params": [
+      {
+        "name": "socket",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 150,
+    "kind": "method",
+    "name": "serve",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#serve",
+    "access": "public",
+    "description": "Serve on this port",
+    "lineNumber": 335,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "int"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "port",
+        "description": "Number of the port"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 151,
+    "kind": "method",
+    "name": "stop",
+    "memberof": "src/server.js~EPigeonServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/server.js~EPigeonServer#stop",
+    "access": "public",
+    "description": "Stop the server",
+    "lineNumber": 342,
+    "params": [],
+    "return": null
+  },
+  {
+    "kind": "index",
+    "content": "# ![logo](https://raw.githubusercontent.com/Lughus/e-pigeon/master/ressources/logo.png) e-pigeon\r\n\r\nImplementation of an handmade application protocol for messaging\r\n\r\nBe careful this is an alpha version of the software and many bugs can be found in it. If you use it and found some, please create an issue, it can be helpful.\r\n\r\n## What does it do ?\r\n\r\nThat's a simple messaging server / client using node-ipc in the hood\\\r\nIt garantee the order of sended messages and that the message has been received.\\\r\nYou can send a message to a group of clients.\\\r\nServer cannot receive message, but you can start a client in the same app of the server and will use localhost to communicate.\r\n\r\n## Getting started\r\n\r\nWorks on node 8+\\\r\nInstall it with `npm i @lug/e-pigeon`\r\n\r\nYou can check [example](https://github.com/Lughus/e-pigeon/tree/master/example) for an simple use of this module.\r\n\r\n### Server\r\n\r\n```js\r\nconst { EPigeonServer } = require('@lug/e-pigeon')\r\nconst server = new EPigeonServer()\r\nserver.serve(9999)\r\n```\r\n\r\n### Client\r\n\r\n```js\r\nconst { EPigeonClient } = require('@lug/e-pigeon')\r\nconst client = new EPigeonClient()\r\nclient.connect('host', 9999)\r\n```\r\n\r\n## Documentation\r\n\r\nFor debugging, you can set the env debug variable to `epigeon:*` like described in the [debug](https://github.com/visionmedia/debug) module\r\n\r\n### Server\r\n\r\n#### Methods\r\n\r\n| name  | params   | description        |\r\n| ----- | -------- | ------------------ |\r\n| serve | port:Int | serve on this port |\r\n| stop  | -        | stop the server    |\r\n\r\n### Client\r\n\r\n#### Methods\r\n\r\n| name| params| description|\r\n|-|-|-|\r\n| connect| host:string / port:Int| connect to server|\r\n| disconnect|-| disconnect from server|\r\n| updateSession | {key:value,...}| set values to your client session|\r\n| sendMessage   | to: uuid or {key:value} / content:any | send a message to a uuid or to all client that match the key:value on their session |\r\n\r\n\r\n#### Events\r\n\r\nYou can add en event handler with `client.on(<event>, <callback>)`\r\n\r\n| event | callback params | description|\r\n|-|-|-|\r\n| connected| - | when the client is connected to the server|\r\n| disconnected | - | when the client is disconnected|\r\n| authenticated | - | when the client is authenticated|\r\n| session.update | {uuid, session} | when a client update his session|\r\n| message | message | when a message is recieved, contains many things but the content is stored in `message.payload`\r\n| client.connect | uuid | when a client connect to the server|\r\n| client.disconnect | uuid | when a client disconnect from the server|\r\n\r\n\r\n\r\n",
+    "longname": "C:\\Users\\eso\\gh\\e-pigeon\\README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\r\n  \"name\": \"@lug/e-pigeon\",\r\n  \"version\": \"1.0.2\",\r\n  \"description\": \"Handmade messaging protocol implemented in js\",\r\n  \"main\": \"index.js\",\r\n  \"scripts\": {\r\n    \"doc\": \"esdoc\",\r\n    \"test\": \"node test/index.js\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/Lughus/e-pigeon.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"messaging\",\r\n    \"protocol\"\r\n  ],\r\n  \"esdoc\": {\r\n    \"source\": \"./src\",\r\n    \"destination\": \"./docs\",\r\n    \"plugins\": [\r\n      {\r\n        \"name\": \"esdoc-standard-plugin\"\r\n      }\r\n    ]\r\n  },\r\n  \"author\": \"Westixy\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/Lughus/e-pigeon/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/Lughus/e-pigeon#readme\",\r\n  \"dependencies\": {\r\n    \"@lug/netproxy-node-ipc\": \"^1.0.2\",\r\n    \"debug\": \"^3.1.0\",\r\n    \"uuid\": \"^3.2.1\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\"\r\n  }\r\n}\r\n",
+    "longname": "C:\\Users\\eso\\gh\\e-pigeon\\package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
