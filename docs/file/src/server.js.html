@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/server.js | @lug/e-pigeon</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Handmade messaging protocol implemented in js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@lug/e-pigeon"><meta property="twitter:description" content="Handmade messaging protocol implemented in js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/Lughus/e-pigeon"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~EPigeonClient.html">EPigeonClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html">EPigeonServer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/server.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const {
+  NetServerProxyNodeIpc
+} = require(&apos;@lug/netproxy-node-ipc&apos;)
+const NetServerProxy = NetServerProxyNodeIpc
+const MessagePrototype = require(&apos;./messagePrototype&apos;)
+const ClientStorage = require(&apos;./clientStorage&apos;)
+
+const debug = require(&apos;debug&apos;)
+const dbg = debug(&apos;epigeon:serve&apos;)
+const dbgx = debug(&apos;epigeon:srv&apos;)
+
+export default class EPigeonServer {
+  constructor() {
+    /**
+     * Interface that is used to send message
+     * @type {NetServerProxy}
+     */
+    this._net = new NetServerProxy()
+    /**
+     * Clients that was connected a least one time
+     * @type {ClientStorage[]}
+     */
+    this.clients = []
+    /**
+     * List of message that doesn&apos;t know the destination client and wait that it connect
+     * @type {MessagePrototype[]}
+     */
+    this._unknowList = []
+
+    this._initEvents()
+  }
+  _initEvents() {
+    this._net.ev.on(&apos;socket.data&apos;, this._onData.bind(this))
+    this._net.ev.on(
+      &apos;socket.disconnect&apos;,
+      this._onSocketDisconnect.bind(this)
+    )
+    this._net.ev.on(
+      &apos;socket.connect&apos;,
+      (socket) =&gt; {
+        dbg(&apos;socket connected : &apos;, socket)
+      }
+    )
+  }
+  /**
+   * find a client from his socket
+   * @param {Socket|any} socket of the client
+   * @returns {ClientStorage?} the client wha as this socket
+   */
+  _findFromSocket(socket) {
+    if (socket === null) return
+    return this.clients.find(c =&gt; c.socket === socket)
+  }
+  /**
+   * Find the destinator(s) of the message
+   * @param {MessagePrototype} message the message that contanin the destinator
+   * @param {ClientStorage[]} clients the clients that we need to find in a destinator
+   * @returns {ClientStorage[]} clients that correspond to message.to
+   */
+  _findFromMessageTo(message, clients = this.clients) {
+    let dstClients = []
+    dbg(&apos;find client:&apos;, clients, message)
+    if (typeof message.to === &apos;string&apos;) {
+      let client = clients.find(c =&gt; c.uuid === message.to)
+      if (client !== undefined) dstClients.push(client)
+    } else if (typeof message.to === &apos;object&apos;) {
+      for (let client of clients)
+        for (let key in message.to) {
+          if (client.session[key] !== undefined &amp;&amp;
+            client.session[key] === message.to[key])
+            dstClients.push(client)
+        }
+    }
+    return dstClients
+  }
+  _onSocketDisconnect(socket) {
+    // find in the client list the socket and put his state to disconnected
+    const client = this._findFromSocket(socket)
+    dbg(&apos;client disconnected :&apos;, socket)
+    if (client !== undefined) {
+      client.socket = null
+      client._sentList.forEach(message =&gt; {
+        this._clearResendAction(message)
+      })
+    }
+    this._notifyClientsOfADisconnection(client)
+  }
+  _notifyClientsOfADisconnection(disconnectedClient) {
+    for (let client of this.clients) {
+      if (client.socket !== null) {
+        this._net.send(client.socket, JSON.stringify({
+          action: &apos;client.disconnect&apos;,
+          payload: disconnectedClient.uuid
+        }))
+      }
+    }
+  }
+  _notifyClientsOfAConnection(connectedClient) {
+    for (let client of this.clients) {
+      if (client.uuid !== connectedClient.uuid &amp;&amp; client.socket !== null) {
+        this._net.send(client.socket, JSON.stringify({
+          action: &apos;client.connect&apos;,
+          payload: connectedClient.uuid
+        }))
+      }
+    }
+  }
+  _onData(socket, data) {
+    data = JSON.parse(data)
+    dbg(&apos;data recieved&apos;, data)
+    let actions = {
+      &apos;auth&apos;: this._onAuth.bind(this),
+      &apos;message.new&apos;: this._onMessageNew.bind(this),
+      &apos;message.confirm&apos;: this._onMessageConfirm.bind(this),
+      &apos;message.retry&apos;: this._onMessageRetry.bind(this),
+      &apos;clients.list&apos;: this._onClientsList.bind(this),
+      &apos;session.update&apos;: this._onSessionUpdate.bind(this),
+    }
+    actions[data.action](socket, data.payload)
+  }
+  _onAuth(socket, uuid) {
+    // find if a client have this uuid if true, set the socket else create new client
+    let client = this.clients.find(c =&gt; c.uuid === uuid)
+    let isKnow = true
+    if (client === undefined) {
+      client = new ClientStorage()
+      client.uuid = uuid
+      this.clients.push(client)
+      isKnow = false
+    }
+    dbg(&apos;client auth :&apos;, isKnow, uuid)
+    client.socket = socket
+    this._net.send(socket, JSON.stringify({
+      action: &apos;auth&apos;,
+      payload: isKnow
+    }))
+    this._sendClientsList(socket)
+    // send messages in the sendlist
+    client._sentList.forEach(message =&gt; {
+      this._sendMessageWithRetry(client.socket, message)
+    })
+    this._notifyClientsOfAConnection(client)
+    this._tryToSendUnknowDestinatoryMessage(client)
+  }
+  _tryToSendUnknowDestinatoryMessage(clients = this.clients) {
+    dbg(&apos;try to find destinator for :&apos;, clients, this._unknowList)
+    if (!Array.isArray(clients)) clients = [clients]
+    for (let messageIndex in this._unknowList) {
+      let message = this._unknowList[messageIndex]
+      let dstClients = this._findFromMessageTo(message, clients)
+      for (let client of dstClients)
+        if (client !== undefined) {
+          dbg(&apos;message found a destinator :&apos;, message, client)
+          let message_ = JSON.parse(JSON.stringify(message))
+          this._updateMessageId(client, message_)
+          client._sentList.push(message_)
+          if (client.socket !== undefined)
+            this._sendMessageWithRetry(client.socket, message_)
+        }
+      if (dstClients.length &gt; 0)
+        this._unknowList.splice(messageIndex, 1)
+    }
+  }
+  _updateMessageId(client, message) {
+    message.fromId = message.id
+    message.id = client._lastSendId++
+  }
+  _onMessageNew(socket, message) {
+    /* on new message : many things
+     * - find client from
+     * - confirm message reception
+     * - check if message id is the next
+     *   - if not put in wait list
+     *   - if yes send the message to the event message recieved 
+     *     for each that are in the right order and block when is not and remove from the list
+     */
+    const client = this._findFromSocket(socket)
+    dbg(&apos;message recieved from :&apos;, client, message)
+    dbgx(&apos;message recieved:&apos;, message)
+    this._confirmMessage(socket, message)
+    client._waitList.push(message)
+    // send all in wait list
+    for (
+      let mess = message; mess !== undefined; mess = client._waitList.find(m =&gt; m.id === client._lastEmitId + 1)
+    ) {
+      // find destination client
+      let toClients = this._findFromMessageTo(mess)
+      if (toClients.length === 0) {
+        // put message in unknown list
+        this._unknowList.push(mess)
+      } else {
+        // send message
+        for (let toClient of toClients) {
+          this._clearResendAction(mess)
+          let mess_ = JSON.parse(JSON.stringify(mess))
+          this._updateMessageId(toClient, mess_)
+          // thats something strange, if a message arrive at the same time that someone connect the message is duplicated
+          //  with that it cancel the new send
+          if(toClient._sentList.find(a=&gt;a.uid === mess_.uid))
+            return dbg(&apos;message duplicate found on the sent list, so cancel the new send&apos;, mess_)
+          // END TEST
+          toClient._sentList.push(mess_)
+          if (toClient.socket !== null) {
+            this._sendMessageWithRetry(toClient.socket, mess_)
+          }
+        }
+      }
+      // rm from list
+      client._waitList.splice(
+        client._waitList.findIndex(m =&gt; m.uid === mess.uid),
+        1
+      )
+      client._lastEmitId += 1
+    }
+  }
+  _onMessageConfirm(socket, uid) {
+    // remove from sentlist message with the uid
+    const client = this._findFromSocket(socket)
+    if (client !== undefined) {
+      const index = client._sentList.findIndex(m =&gt; m.uid === uid)
+      if (index !== -1) {
+        let message = client._sentList.splice(index, 1)[0]
+        this._clearResendAction(message)
+        dbg(&apos;Confirmed message :&apos;, message)
+      } else
+        console.error(
+          Error(&apos;SRV:Message confirm recieved but cannot find message&apos;),
+          client,
+          uid
+        )
+    } else
+      console.error(
+        Error(&apos;SRV:Message confirm recieved but cannot find client&apos;),
+        socket,
+        uid
+      )
+  }
+  _onMessageRetry(socket, id) {
+    // resent the message with the id that is store in the sent list
+    const client = this._findFromSocket(socket)
+    dbg(&apos;asked to retry a message with id :&apos;, id)
+    if (client !== undefined) {
+      const message = client._sentList.find(m =&gt; m.id === id)
+      if (message !== undefined) this._sendMessage(socket, message)
+      else
+        console.error(
+          Error(&apos;SRV:Message retry asked but cannot find message&apos;),
+          client,
+          uid
+        )
+    } else
+      console.error(
+        Error(&apos;SRV:Message retry asked but cannot find client&apos;),
+        socket,
+        uid
+      )
+  }
+  _onClientsList(socket) {
+    dbg(&apos;asked for client list&apos;)
+    this._sendClientsList(socket)
+  }
+  _sendClientsList(socket) {
+    this._net.send(socket, JSON.stringify({
+      action: &apos;clients.list&apos;,
+      payload: this.clients.map(({
+        uuid,
+        state,
+        session
+      }) =&gt; ({
+        uuid,
+        state,
+        session
+      }))
+    }))
+  }
+  _clearResendAction(message) {
+    if (message.resendAction !== undefined) {
+      clearTimeout(message.resendAction)
+      delete message.resendAction
+    }
+  }
+  _sendMessage(socket, message) {
+    if (socket === null) return
+    this._clearResendAction(message)
+    this._net.send(socket, JSON.stringify({
+      action: &apos;message.new&apos;,
+      payload: message
+    }))
+  }
+  _sendMessageWithRetry(socket, message) {
+    dbg(&apos;send message with retry :&apos;, message)
+    this._sendMessage(socket, message)
+    message.resendAction = setTimeout(() =&gt; {
+      this._sendMessageWithRetry(socket, message)
+    }, 2000)
+  }
+  _confirmMessage(socket, message) {
+    dbg(&apos;confirm message&apos;, message)
+    this._clearResendAction(message)
+    this._net.send(socket, JSON.stringify({
+      action: &apos;message.confirm&apos;,
+      payload: message.uid
+    }))
+  }
+  _onSessionUpdate(socket, session) {
+    const client = this._findFromSocket(socket)
+    dbg(&apos;session update for:&apos;, client, session)
+    client.session = session
+    const data = JSON.stringify({
+      action: &apos;session.update&apos;,
+      payload: {
+        uuid: client.uuid,
+        connected: true,
+        session
+      }
+    })
+    this.clients.forEach(c =&gt; {
+      if (c.socket !== null) {
+        this._net.send(c.socket, data)
+      }
+    })
+    this._tryToSendUnknowDestinatoryMessage(client)
+  }
+  _retryMessage(socket, id) {
+    dbg(&apos;ask for retry :&apos;, id)
+    this._net.send(socket, JSON.stringify({
+      action: &apos;message.retry&apos;,
+      payload: id
+    }))
+  }
+  /**
+   * Serve on this port
+   * @param {int} port Number of the port 
+   */
+  serve(port) {
+    dbg(&apos;serve at&apos;, port)
+    this._net.listen(port)
+  }
+  /**
+   * Stop the server
+   */
+  stop() {
+    dbg(&apos;stop&apos;)
+    this._net.stop()
+  }
+}
+
+module.exports = EPigeonServer</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

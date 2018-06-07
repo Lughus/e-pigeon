@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/client.js | @lug/e-pigeon</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Handmade messaging protocol implemented in js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@lug/e-pigeon"><meta property="twitter:description" content="Handmade messaging protocol implemented in js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/Lughus/e-pigeon"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~EPigeonClient.html">EPigeonClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html">EPigeonServer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/client.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const {
+  NetClientProxyNodeIpc
+} = require(&apos;@lug/netproxy-node-ipc&apos;)
+const NetClientProxy = NetClientProxyNodeIpc
+const MessagePrototype = require(&apos;./messagePrototype&apos;)
+const ClientStorage = require(&apos;./clientStorage&apos;)
+
+const Events = require(&apos;events&apos;)
+
+const dbg = require(&apos;debug&apos;)(&apos;epigeon:client&apos;)
+
+export default class EPigeonClient {
+  constructor() {
+    /**
+     * Interface that is used to send message
+     * @type {NetClientProxy}
+     */
+    this._net = new NetClientProxy
+    this._me = new ClientStorage
+    this._clients = []
+    this._state = &apos;disconnected&apos;
+    this._ev = new Events
+    this._initEvents()
+  }
+  /**
+   * clients that has been connected to the server {uuid, session}
+   * @type {objcet[]}
+   */
+  get clients() {
+    return this._clients
+  }
+  /**
+   * uuid of this client
+   * @type {string}
+   */
+  get uuid() {
+    return this._me.uuid
+  }
+  /**
+   * Session of this client
+   * @type {object}
+   */
+  get session() {
+    return this._me.session
+  }
+  /**
+   * State of the client; can be &quot;connected&quot; or &quot;disconnected&quot;
+   * @type {string}
+   */
+  get state() {
+    return this._state
+  }
+  /**
+   * Define event callback (Emitter)
+   * @param {string} event  the name of the event
+   * @param {function} callback YKWTD :)
+   */
+  on(event, callback) {
+    this._ev.on(event, callback)
+  }
+  /**
+   * Disable an event
+   * @param {string} event the name of the event
+   * @param {function} callback clabback linked that u want to remove
+   */
+  off(event, callback) {
+    this._ev.removeListener(event, callback)
+  }
+  _initEvents() {
+    this._net.ev.on(&apos;connected&apos;, this._onConnect.bind(this))
+    this._net.ev.on(&apos;disconnect&apos;, this._onDisconnect.bind(this))
+    this._net.ev.on(&apos;data&apos;, this._onData.bind(this))
+  }
+  /**
+   * Handler for the on connect action.
+   * You can add an handler with client.on(&apos;connected&apos;,...)
+   */
+  _onConnect() {
+    this._state = &apos;connected&apos;
+    dbg(&apos;connected&apos;)
+    this._ev.emit(&apos;connected&apos;)
+    this._authMe()
+  }
+  /**
+   * Handler for the on disconnect action.
+   * You can add an handler with client.on(&apos;disconnected&apos;,...)
+   */
+  _onDisconnect() {
+    this._state = &apos;disconnected&apos;
+    this._ev.emit(&apos;disconnected&apos;)
+    this._me._sentList.forEach(message =&gt; {
+      if (message.resendAction !== undefined) {
+        clearTimeout(message.resendAction)
+        delete message.resendAction
+      }
+    })
+  }
+  _onData(data) {
+    data = JSON.parse(data)
+    let actions = {
+      &apos;auth&apos;: this._onAuth.bind(this),
+      &apos;clients.list&apos;: this._onClientsList.bind(this),
+      &apos;session.update&apos;: this._onSessionUpdate.bind(this),
+      &apos;message.new&apos;: this._onMessageNew.bind(this),
+      &apos;message.retry&apos;: this._onMessageRetry.bind(this),
+      &apos;message.confirm&apos;: this._onMessageConfirm.bind(this),
+      &apos;client.connect&apos;: this._onClientConnect.bind(this),
+      &apos;client.disconnect&apos;: this._onClientDisconnect.bind(this),
+    }
+    actions[data.action](data.payload)
+  }
+  /**
+   * Handler for the on auth action.
+   * You can add an handler with client.on(&apos;authenticated&apos;,...)
+   */
+  _onAuth(isKnow) {
+    dbg(&apos;authenticated&apos;)
+    this.updateSession(this.session)
+    if (isKnow === false &amp;&amp; this._hasConnectedOnce === true) {
+      this._resetIndexes()
+    } else this._hasConnectedOnce = true
+    this._ev.emit(&apos;authenticated&apos;)
+    this._me._sentList.forEach(message =&gt; {
+      this._sendMessageWithRetry(message)
+    })
+  }
+  /**
+   * reset all indexes and lists for the client storage
+   */
+  _resetIndexes() {
+    this._me._lastEmitId = 0
+    this._me._lastSendId = 0
+    this._me._sentList = []
+    this._me._waitList = []
+  }
+  _authMe() {
+    dbg(&apos;auth me&apos;)
+    this._net.send(JSON.stringify({
+      action: &apos;auth&apos;,
+      payload: this._me.uuid
+    }))
+  }
+  _onClientsList(list) {
+    dbg(&apos;recieved client list :&apos;, list)
+    this._clients = list
+  }
+  /**
+   * Handler for the on sessionUpdate action.
+   * You can add an handler with client.on(&apos;session-update&apos;,({uuid,session})=&gt;...)
+   */
+  _onSessionUpdate(payload) {
+    let client = this._clients.find(c =&gt; c.uuid === payload.uuid)
+    dbg(&apos;recieved session for client :&apos;, client, payload)
+    if (client === undefined) this._clients.push(payload)
+    else client.session = payload.session
+    this._ev.emit(&apos;session.update&apos;, payload)
+  }
+  /**
+   * Handler for the on message action.
+   * You can add an handler with client.on(&apos;message&apos;,message=&gt;...)
+   */
+  _onMessageNew(message) {
+    const client = this._me
+    dbg(&apos;message recieved :&apos;, message)
+    this._confirmMessage(message)
+    client._waitList.push(message)
+
+    // send all in wait list
+    for (
+      let mess = message; mess !== undefined; mess = client._waitList.find(m =&gt; m.id === client._lastEmitId + 1) // maybe an error here
+    ) {
+      client._waitList.splice(
+        client._waitList.findIndex(m =&gt; m.uid === mess.uid),
+        1
+      )
+      client._lastEmitId += 1
+      this._ev.emit(&apos;message&apos;, message)
+    }
+  }
+  _onMessageRetry(id) {
+    const message = this._me._sentList.find(m =&gt; m.id === id)
+    dbg(&apos;message retry asked :&apos;, message)
+    if (message !== undefined) this._sendMessage(message)
+    else
+      console.error(
+        Error(&apos;Message retry asked but cannot find message&apos;),
+        uid
+      )
+  }
+  _onMessageConfirm(uid) {
+    const index = this._me._sentList.findIndex(m =&gt; m.uid === uid)
+    if (index !== -1) {
+      const message = this._me._sentList.splice(index, 1)[0]
+      this._clearResendAction(message)
+      dbg(&apos;message confirmed&apos;, message)
+    }
+  }
+  _onClientConnect(uuid) {
+    dbg(&apos;client connected:&apos;, uuid)
+    let client = this.clients.find(c =&gt; c.uuid === uuid)
+    if (client !== undefined) {
+      client.state = &apos;connected&apos;
+      this._ev.emit(&apos;client.connect&apos;, client)
+    } else this._askClientsList()
+  }
+  _onClientDisconnect(uuid) {
+    dbg(&apos;client disconnected:&apos;, uuid)
+    let client = this.clients.find(c =&gt; c.uuid === uuid)
+    if (client !== undefined) {
+      client.state = &apos;disconnected&apos;
+      this._ev.emit(&apos;client.disconnect&apos;, client)
+    } else this._askClientsList()
+  }
+  _confirmMessage(message) {
+    dbg(&apos;confirm message :&apos;, message)
+    this._net.send(JSON.stringify({
+      action: &apos;message.confirm&apos;,
+      payload: message.uid
+    }))
+  }
+  _askClientsList() {
+    dbg(&apos;ask clients list&apos;)
+    if (this.state !== &apos;disconnected&apos;)
+      this._net.send(JSON.stringify({
+        action: &apos;clients.list&apos;,
+        payload: &apos;&apos;
+      }))
+  }
+  _sendMessage(message) {
+    this._clearResendAction(message)
+    dbg(&apos;send new message:&apos;, message)
+    this._net.send(JSON.stringify({
+      action: &apos;message.new&apos;,
+      payload: message
+    }))
+  }
+  _clearResendAction(message) {
+    if (message.resendAction !== undefined) {
+      clearTimeout(message.resendAction)
+      delete message.resendAction
+    }
+  }
+  async _sendMessageWithRetry(message) {
+    this._sendMessage(message)
+    message.resendAction = setTimeout(() =&gt; {
+      this._sendMessageWithRetry(message)
+    }, 2000)
+  }
+  /**
+   * Send a message to another client
+   * @param {string|object} to string : uuid of the destination client ||
+   * object : {key:value} that correspond to the session of the client 
+   * ; can correspond to many like a group
+   * @param {any} messageCnt Content of the message 
+   */
+  sendMessage(to, messageCnt) {
+    dbg(&apos;send message to:&apos;, to, messageCnt)
+    const message = new MessagePrototype
+    message.from = this._me.uuid
+    message.to = to
+    message.id = this._me._lastSendId++;
+    message.payload = messageCnt
+    this._me._sentList.push(message)
+    if (this.state === &apos;connected&apos;)
+      this._sendMessageWithRetry(message)
+  }
+  /**
+   * Update your session object and send it to the others connected client
+   * @param {object} object some key:value that you need to change in the session
+   */
+  updateSession(object = {}) {
+    Object.assign(this._me.session, object)
+    for (let k in this._me.session)
+      if (this._me.session[k] === undefined)
+        delete this._me.session[k]
+    dbg(&apos;update session&apos;)
+    if (this.state === &apos;connected&apos;)
+      this._net.send(JSON.stringify({
+        action: &apos;session.update&apos;,
+        payload: this._me.session
+      }))
+  }
+  /**
+   * try to connect to the server, try to the infinite
+   * @param {string} ip the ip or dns of the server
+   * @param {Int} port the port of the server 
+   */
+  connect(ip, port) {
+    dbg(&apos;connect:&apos;, ip, port)
+    this._net.connect(ip, port)
+  }
+  /**
+   * disconnect the client
+   */
+  disconnect() {
+    dbg(&apos;disconnect&apos;)
+    this._net.disconnect()
+  }
+}
+
+module.exports = EPigeonClient</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | @lug/e-pigeon</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Handmade messaging protocol implemented in js"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@lug/e-pigeon"><meta property="twitter:description" content="Handmade messaging protocol implemented in js"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/Lughus/e-pigeon"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~EPigeonClient.html">EPigeonClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/clientStorage.js~ClientStorage.html">ClientStorage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/messagePrototype.js~MessagePrototype.html">MessagePrototype</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/server.js~EPigeonServer.html">EPigeonServer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="-img-src--https---raw-githubusercontent-com-lughus-e-pigeon-master-ressources-logo-png--alt--logo---e-pigeon"><img src="https://raw.githubusercontent.com/Lughus/e-pigeon/master/ressources/logo.png" alt="logo"> e-pigeon</h1><p>Implementation of an handmade application protocol for messaging</p>
+<p>Be careful this is an alpha version of the software and many bugs can be found in it. If you use it and found some, please create an issue, it can be helpful.</p>
+<h2 id="what-does-it-do--">What does it do ?</h2><p>That&apos;s a simple messaging server / client using node-ipc in the hood\
+It garantee the order of sended messages and that the message has been received.\
+You can send a message to a group of clients.\
+Server cannot receive message, but you can start a client in the same app of the server and will use localhost to communicate.</p>
+<h2 id="getting-started">Getting started</h2><p>Works on node 8+\
+Install it with <code>npm i @lug/e-pigeon</code></p>
+<p>You can check <a href="https://github.com/Lughus/e-pigeon/tree/master/example">example</a> for an simple use of this module.</p>
+<h3 id="server">Server</h3><pre><code class="lang-js"><code class="source-code prettyprint">const { EPigeonServer } = require(&apos;@lug/e-pigeon&apos;)
+const server = new EPigeonServer()
+server.serve(9999)</code>
+</code></pre>
+<h3 id="client">Client</h3><pre><code class="lang-js"><code class="source-code prettyprint">const { EPigeonClient } = require(&apos;@lug/e-pigeon&apos;)
+const client = new EPigeonClient()
+client.connect(&apos;host&apos;, 9999)</code>
+</code></pre>
+<h2 id="documentation">Documentation</h2><p>For debugging, you can set the env debug variable to <code>epigeon:*</code> like described in the <a href="https://github.com/visionmedia/debug">debug</a> module</p>
+<h3 id="server">Server</h3><h4 id="methods">Methods</h4><table>
+<thead>
+<tr>
+<th>name</th>
+<th>params</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>serve</td>
+<td>port:Int</td>
+<td>serve on this port</td>
+</tr>
+<tr>
+<td>stop</td>
+<td>-</td>
+<td>stop the server</td>
+</tr>
+</tbody>
+</table>
+<h3 id="client">Client</h3><h4 id="methods">Methods</h4><table>
+<thead>
+<tr>
+<th>name</th>
+<th>params</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connect</td>
+<td>host:string / port:Int</td>
+<td>connect to server</td>
+</tr>
+<tr>
+<td>disconnect</td>
+<td>-</td>
+<td>disconnect from server</td>
+</tr>
+<tr>
+<td>updateSession</td>
+<td>{key:value,...}</td>
+<td>set values to your client session</td>
+</tr>
+<tr>
+<td>sendMessage</td>
+<td>to: uuid or {key:value} / content:any</td>
+<td>send a message to a uuid or to all client that match the key:value on their session</td>
+</tr>
+</tbody>
+</table>
+<h4 id="events">Events</h4><p>You can add en event handler with <code>client.on(&lt;event&gt;, &lt;callback&gt;)</code></p>
+<table>
+<thead>
+<tr>
+<th>event</th>
+<th>callback params</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>connected</td>
+<td>-</td>
+<td>when the client is connected to the server</td>
+</tr>
+<tr>
+<td>disconnected</td>
+<td>-</td>
+<td>when the client is disconnected</td>
+</tr>
+<tr>
+<td>authenticated</td>
+<td>-</td>
+<td>when the client is authenticated</td>
+</tr>
+<tr>
+<td>session.update</td>
+<td>{uuid, session}</td>
+<td>when a client update his session</td>
+</tr>
+<tr>
+<td>message</td>
+<td>message</td>
+<td>when a message is recieved, contains many things but the content is stored in <code>message.payload</code></td>
+</tr>
+<tr>
+<td>client.connect</td>
+<td>uuid</td>
+<td>when a client connect to the server</td>
+</tr>
+<tr>
+<td>client.disconnect</td>
+<td>uuid</td>
+<td>when a client disconnect from the server</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
